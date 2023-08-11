@@ -7,11 +7,9 @@ import { getStrapiAPIURL } from "@/helpers/api";
     async function getPostByTag(tags: []) {
         try {
             const response = await fetch(
-                getStrapiAPIURL(`posts?populate=*&filters[tags][$eq]=${tags}`), 
+                getStrapiAPIURL(`posts?populate=*&filters[tags][name][$eq]=${tags}`), 
                 { cache: 'no-store' }
             );
-
-            console.log(response);
     
             return response.json();
         } catch (error) {
