@@ -1,30 +1,21 @@
-import { getStrapiAPIURL } from "@/helpers/api";
+"use client"
+import React, { useState } from 'react';
+import { getPostByTag } from '../../api/getPostByTag';
+import { redirect } from 'next/navigation'
 
-    type Props = {
-        items: [];
-    }
+export const SearchBar = () => {
+  const [tag, setTag] = useState('');
 
-    async function getPostByTag(tags: []) {
-        try {
-            const response = await fetch(
-                getStrapiAPIURL(`posts?populate=*&filters[tags][name][$eq]=${tags}`), 
-                { cache: 'no-store' }
-            );
-    
-            return response.json();
-        } catch (error) {
-            console.log(error);
-            throw new Error('Fail');
-        }
-    }
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    // await getPostByTag(tag);
 
-export default async function SearchBar({items}: Props) {
-    const { data: tag } = await getPostByTag(items);
+    redirect('/search');
+  };
 
-    console.log(tag);
-
-    return (
-        <form>   
+  return (
+    <div>
+        <form onSubmit={handleSubmit}>   
             <label className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Buscar</label>
             <div className="relative">
                 <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -37,8 +28,11 @@ export default async function SearchBar({items}: Props) {
                     className="block w-full p-4 pl-10 text-sm text-gray-900 border 
                         border-gray-300 rounded-lg bg-gray-50 focus:ring-purple-900 focus:border-purple-900 dark:bg-gray-700 dark:border-gray-600 
                         dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-900 dark:focus:border-purple-900" 
-                    placeholder="amor, amizade..."
-                    required 
+                    placeholder="natureza, amizade..."
+                    required
+                    name="fieldTagName"
+                    value={tag}
+                    onChange={(e) => setTag(e.target.value)}
                 />
                 <button type="submit" className="absolute right-2.5 bottom-2.5 bg-purple-900 hover:bg-purple-900 
                     focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg 
@@ -46,5 +40,6 @@ export default async function SearchBar({items}: Props) {
                 >Buscar</button>
             </div>
         </form>
-    );
-}
+    </div>
+  );
+};

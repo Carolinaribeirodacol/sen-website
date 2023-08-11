@@ -1,6 +1,6 @@
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import { Image } from "../ui/Image";
-import SearchBar from "./SearchBar";
+import { SearchBar } from "./SearchBar";
 
 type Props = {
   items: {
@@ -24,8 +24,6 @@ type Props = {
 }
 
 export const Navbar = ({items}: Props) => {
-  const tags = ['teste'];
-
   return (
     <nav className="bg-white border-b-4 border-b-purple-900 h-36">
     <div className="flex flex-wrap items-center justify-between m-auto h-full py-4 px-6 ">
@@ -45,7 +43,7 @@ export const Navbar = ({items}: Props) => {
                 ))}
               </li>
               <li>
-                <SearchBar items={tags} />
+                <SearchBar />
               </li>
           </ul>
         </div>
