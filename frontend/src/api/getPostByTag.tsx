@@ -9,7 +9,6 @@ export async function getPostByTag(tag: string) {
 
         return response.json();
     } catch (error) {
-        console.log(error)
         throw new Error('Fail');
     }
 }

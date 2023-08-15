@@ -1,16 +1,15 @@
 "use client"
 import React, { useState } from 'react';
-import { getPostByTag } from '../../api/getPostByTag';
-import { redirect } from 'next/navigation'
+import { redirect, useRouter } from 'next/navigation'
 
 export const SearchBar = () => {
+    const router = useRouter();
   const [tag, setTag] = useState('');
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    // await getPostByTag(tag);
 
-    redirect('/search');
+    router.push(`/search?query=${tag}`)
   };
 
   return (
