@@ -19,9 +19,6 @@
       "type": "uid",
       "targetField": "title"
     },
-    "content": {
-      "type": "richtext"
-    },
     "author": {
       "type": "string"
     },
@@ -49,6 +46,13 @@
       "relation": "manyToMany",
       "target": "api::tag.tag",
       "inversedBy": "posts"
+    },
+    "content": {
+      "type": "customField",
+      "options": {
+        "preset": "toolbar"
+      },
+      "customField": "plugin::ckeditor5.CKEditor"
     }
   }
 }

@@ -7,7 +7,6 @@ import moment from 'moment'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import CKEditor from 'ckeditor4-react';
 
 export default function Search() {
     const searchParams = useSearchParams()
@@ -63,12 +62,6 @@ export default function Search() {
                             </ul>
                             <h1 className="font-bold py-4 text-2xl text-purple-900">{post.attributes.title}</h1>
                             <Markdown className="text-sm">{post.attributes.content}</Markdown>
-                            <CKEditor
-                                data="<p>Conteúdo inicial</p>"
-                                onChange={(event) => {
-                                console.log(event.editor.getData());
-                                }}
-                            />
                         </div>
                     </Link>
                     </div>
