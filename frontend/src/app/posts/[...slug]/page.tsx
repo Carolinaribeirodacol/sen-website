@@ -17,7 +17,6 @@ async function getPostData(slug: string) {
 
         return response.json();
     } catch (error) {
-        console.log(error);
         throw new Error('Fail');
     }
 }
@@ -31,7 +30,6 @@ async function getComments(postId: number) {
 
         return response.json();
     } catch (error) {
-        console.log(error);
         throw new Error('Fail');
     }
 }
@@ -41,7 +39,7 @@ export default async function Page({params: {slug}}: Props) {
     const { data: comments } = await getComments(post.id);
 
     return (
-        <main className="flex min-h-screen bg-[url('/assets/bg.jpg')] object-cover w-full mx-auto">
+        <main className="flex min-h-screen bg-[url('/assets/bg-forest.jpg')] object-cover w-full mx-auto">
             <div className="flex flex-col justify-between bg-slate-200/80 m-20 p-10 backdrop-blur-sm divide-y">
                 <div>
                     <h1 className="py-6 text-center text-4xl text-purple-900 font-bold">{post.attributes.title}</h1>
