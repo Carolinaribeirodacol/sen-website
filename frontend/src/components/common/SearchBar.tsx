@@ -4,10 +4,10 @@ import { redirect, useRouter } from 'next/navigation'
 
 export const SearchBar = () => {
     const router = useRouter();
-  const [tag, setTag] = useState('');
+    const [tag, setTag] = useState('');
 
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
+    const handleSubmit = async (e: any) => {
+        e.preventDefault();
 
     router.push(`/search?query=${tag}`)
   };
@@ -15,7 +15,7 @@ export const SearchBar = () => {
   return (
     <div>
         <form onSubmit={handleSubmit}>   
-            <label className="mb-2 text-sm font-medium text-gray-100 sr-only dark:text-white">Buscar</label>
+            <label className="mb-2 text-sm font-medium text-gray-100 sr-only">Buscar</label>
             <div className="relative">
                 <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                     <svg className="w-4 h-4 text-gray-100 dark:text-gray-100" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
@@ -25,8 +25,8 @@ export const SearchBar = () => {
                 <input
                     type="search" id="default-search" 
                     className="block w-full p-4 px-14 text-sm border 
-                        rounded-lg bg-gray-400 focus:ring-purple-900 dark:bg-gray-400 
-                        dark:placeholder-gray-300 dark:text-white dark:focus:border-purple-900" 
+                        rounded-lg bg-gray-400 focus:ring-purple-900
+                        dark:placeholder-gray-300" 
                     placeholder="natureza, amizade..."
                     required
                     name="fieldTagName"

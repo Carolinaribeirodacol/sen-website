@@ -23,12 +23,6 @@
         "audios"
       ]
     },
-    "label": {
-      "displayName": "link",
-      "type": "component",
-      "repeatable": true,
-      "component": "page.link"
-    },
     "searchQuery": {
       "type": "text"
     }

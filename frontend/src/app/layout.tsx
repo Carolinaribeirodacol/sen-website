@@ -1,7 +1,7 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import { Navbar } from '@/components/commom/Navbar'
+import { Navbar } from '@/components/common/Navbar'
 import { getStrapiAPIURL } from '@/helpers/api'
 
 const inter = Inter({ subsets: ['latin'] })
