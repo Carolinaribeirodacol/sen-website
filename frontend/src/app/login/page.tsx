@@ -1,7 +1,48 @@
+"use client"
 import { Button } from "@/components/ui/Button";
-import Image from "next/image";
+import { signIn, signOut, useSession } from "next-auth/react";
+import Link from "next/link";
 
-export default async function Login() {
+export default function Login({useSession}) {
+    const signInButtonNode = () => {
+        if (useSession) {
+          return false;
+        }
+    
+        return (
+            // <Link href="/api/auth/signin">
+                <Button 
+                    onClick={(e) => {
+                        e.preventDefault();
+                        signIn();
+                    }} 
+                    typeButton="google" 
+                />
+            // </Link>
+        )
+    };
+
+    const signOutButtonNode = () => {
+        if (!useSession) {
+          return false;
+        }
+    
+        return (
+          <div>
+            <Link href="/api/auth/signout">
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  signOut();
+                }}
+              >
+                Sair
+              </button>
+            </Link>
+          </div>
+        );
+    };
+
     return (
         <main className="flex justify-center items-center min-h-screen bg-slate-300 p-10">
             <div className="flex flex-col items-center justify-center px-8 py-8 bg-white rounded-lg">
@@ -67,7 +108,8 @@ export default async function Login() {
                         </div>
 
                         <div className="p-0 m-0">
-                            <Button typeButton="google" />
+                            {signOutButtonNode()}
+                            {signInButtonNode()}
                             <Button typeButton="facebook" />
                         </div>
                         

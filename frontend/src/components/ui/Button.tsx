@@ -3,7 +3,7 @@ import React from 'react';
 type Props = {
   typeButton: string;
   textButton?: string;
-  onClick?: () => void;
+  onClick?: (event: any) => void;
 };
 
 export const Button = ({ typeButton, textButton, onClick }: Props) => {
@@ -28,13 +28,13 @@ export const Button = ({ typeButton, textButton, onClick }: Props) => {
           <svg className="w-4 h-4 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 8 19">
             <path fill-rule="evenodd" d="M6.135 3H8V0H6.135a4.147 4.147 0 0 0-4.142 4.142V6H0v3h2v9.938h3V9h2.021l.592-3H5V3.591A.6.6 0 0 1 5.592 3h.543Z" clip-rule="evenodd"/>
         </svg>
-          Sign in with Facebook
+          Entrar com Facebook
         </button>
       ) : (
         <button
           onClick={onClick}
           type="button"
-          className="text-white bg-purple-900 hover:bg-purple-900 focus:ring-4 focus:ring-purple-900 font-medium rounded-lg text-sm px-8 py-2.5 mr-2 mb-2 dark:bg-purple-900 dark:hover:bg-purple-900 focus:outline-none dark:focus:ring-purple-900"
+          className="text-white bg-purple-900 hover:bg-purple-950 focus:ring-2 font-medium rounded-lg text-sm px-8 py-2.5 mr-2 mb-2"
         >
           {textButton}
         </button>

@@ -1,6 +1,6 @@
 "use client"
 import React, { useState } from 'react';
-import { redirect, useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 
 export const SearchBar = () => {
     const router = useRouter();
@@ -33,9 +33,9 @@ export const SearchBar = () => {
                     value={tag}
                     onChange={(e) => setTag(e.target.value)}
                 />
-                <button type="submit" className="absolute right-2.5 bottom-2.5 bg-purple-900 hover:bg-purple-900 
+                <button type="submit" className="absolute right-2.5 bottom-2.5 bg-purple-900 hover:bg-purple-950 
                     focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg 
-                    text-sm px-4 py-2 dark:bg-white text-purple-900 hover:text-white dark:hover:bg-purple-900 dark:focus:ring-purple-900"
+                    text-sm px-4 py-2 dark:bg-white text-purple-900 hover:text-white"
                 >Buscar</button>
             </div>
         </form>
