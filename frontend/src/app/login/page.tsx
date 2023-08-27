@@ -1,16 +1,16 @@
 "use client"
 import { Button } from "@/components/ui/Button";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signIn, signOut } from "next-auth/react";
 import Link from "next/link";
 
-export default function Login({useSession}) {
+export default function Login({session}: any) {
     const signInButtonNode = () => {
-        if (useSession) {
+        if (session) {
           return false;
         }
     
         return (
-            // <Link href="/api/auth/signin">
+            <Link href="/api/auth/signin">
                 <Button 
                     onClick={(e) => {
                         e.preventDefault();
@@ -18,12 +18,12 @@ export default function Login({useSession}) {
                     }} 
                     typeButton="google" 
                 />
-            // </Link>
+            </Link>
         )
     };
 
     const signOutButtonNode = () => {
-        if (!useSession) {
+        if (!session) {
           return false;
         }
     

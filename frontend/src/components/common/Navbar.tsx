@@ -3,8 +3,8 @@ import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import { Image } from "../ui/Image";
 import { SearchBar } from "./SearchBar";
 import { Button } from "../ui/Button";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 
 type Props = {
   items: {
@@ -28,6 +28,20 @@ type Props = {
 }
 
 export const Navbar = ({items}: Props) => {
+  const checkIfIsLogged = () => {
+    const { data: session, status }: any = useSession();
+
+    if (status === "authenticated") {
+      return <p>Signed in as {session.user.name}</p>
+    }
+
+    return (
+      <Link href='\login'>
+        <Button typeButton="common" textButton="Entrar"/>
+      </Link>
+    )
+  }
+
   return (
     <nav className="bg-white border-b-4 border-b-purple-900 h-36">
     <div className="flex flex-wrap items-center content-center justify-between m-auto h-full py-4 px-6">
@@ -45,9 +59,7 @@ export const Navbar = ({items}: Props) => {
               <SearchBar />
             </li>
             <li>
-              <Link href='\login'>
-                <Button typeButton="common" textButton="Entrar"/>
-              </Link>
+              {checkIfIsLogged()}
             </li>
             {/* {items.attributes.label.map(label => (
               <li key={label.id}>
