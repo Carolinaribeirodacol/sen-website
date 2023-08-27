@@ -2,11 +2,12 @@ import React from 'react';
 
 type Props = {
   typeButton: string;
+  type?: "button" | "submit" | "reset" | undefined;
   textButton?: string;
   onClick?: (event: any) => void;
 };
 
-export const Button = ({ typeButton, textButton, onClick }: Props) => {
+export const Button = ({ typeButton, type, textButton, onClick }: Props) => {
   return (
     <>
       {typeButton === 'google' ? (
@@ -33,7 +34,7 @@ export const Button = ({ typeButton, textButton, onClick }: Props) => {
       ) : (
         <button
           onClick={onClick}
-          type="button"
+          type={type}
           className="text-white bg-purple-900 hover:bg-purple-950 focus:ring-2 font-medium rounded-lg text-sm px-8 py-2.5 mr-2 mb-2"
         >
           {textButton}

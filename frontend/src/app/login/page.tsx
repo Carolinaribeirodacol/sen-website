@@ -1,7 +1,9 @@
 "use client"
 import { Button } from "@/components/ui/Button";
+import { getStrapiURL } from "@/helpers/api";
 import { signIn, signOut } from "next-auth/react";
 import Link from "next/link";
+import { FormEvent } from "react";
 
 export default function Login({session}: any) {
     const signInButtonNode = () => {
@@ -22,26 +24,24 @@ export default function Login({session}: any) {
         )
     };
 
-    const signOutButtonNode = () => {
-        if (!session) {
-          return false;
-        }
-    
-        return (
-          <div>
-            <Link href="/api/auth/signout">
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  signOut();
-                }}
-              >
-                Sair
-              </button>
-            </Link>
-          </div>
-        );
-    };
+    // identifier: formData.email,
+        // password: formData.password,
+
+    async function onSubmit(event: FormEvent<HTMLFormElement>) {
+        event.preventDefault()
+     
+        const formData = new FormData(event.currentTarget)
+
+        console.log(formData)
+
+        // const response = await fetch(`${getStrapiURL}/auth/local`, {
+        //   method: 'POST',
+        //   body: formData,
+        // })
+     
+        const data = await response.json()
+      
+    }
 
     return (
         <main className="flex justify-center items-center min-h-screen bg-slate-300 p-10">
@@ -52,7 +52,7 @@ export default function Login({session}: any) {
                     >
                         Entre ou cadastre-se
                     </h1>
-                    <form className="space-y-4 md:space-y-6" action="#">
+                    <form onSubmit={onSubmit} className="space-y-4 md:space-y-6" action="#">
                         <div>
                             <label 
                                 className="block mb-2 text-sm font-medium text-gray-800"
@@ -104,11 +104,10 @@ export default function Login({session}: any) {
                         </div>
 
                         <div className="flex justify-center">
-                            <Button typeButton="common" textButton="Entrar" />
+                            <Button type="submit" typeButton="common" textButton="Entrar" />
                         </div>
 
                         <div className="p-0 m-0">
-                            {signOutButtonNode()}
                             {signInButtonNode()}
                             <Button typeButton="facebook" />
                         </div>

@@ -5,6 +5,7 @@ import { SearchBar } from "./SearchBar";
 import { Button } from "../ui/Button";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 type Props = {
   items: {
@@ -32,7 +33,21 @@ export const Navbar = ({items}: Props) => {
     const { data: session, status }: any = useSession();
 
     if (status === "authenticated") {
-      return <p>Signed in as {session.user.name}</p>
+      const router = useRouter();
+
+      router.push('/')
+      
+      return (
+        <div className="flex flex-col text-center">
+          <p className="text-sm">{session.user.name}</p>
+          <a 
+            className="text-blue-500 font-light" 
+            href="/api/auth/signout"
+          >
+            Sair
+          </a>
+        </div>
+      )
     }
 
     return (
@@ -61,22 +76,6 @@ export const Navbar = ({items}: Props) => {
             <li>
               {checkIfIsLogged()}
             </li>
-            {/* {items.attributes.label.map(label => (
-              <li key={label.id}>
-                {label.title === 'Cadastrar' || label.title === 'Entrar' ? (
-                  <Button typeButton="google" />
-                  
-                ) : (
-                  <a
-                    key={label.id}
-                    href={label.url}
-                    className="text-gray-900 font-normal hover:text-violet-600 rounded md:hover:text-fuchsia-40\0 pl-4"
-                  >
-                    {label.title}
-                  </a>
-                )}
-              </li>
-            ))} */}
           </ul>
         </div>
     </div>
