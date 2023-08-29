@@ -1,6 +1,7 @@
 import Router from 'next/router';
 import Cookies from 'js-cookie';
 import { fetcher } from './api';
+import { redirect } from 'next/navigation';
 
 export const setToken = (data) => {
     if (typeof window === 'undefined') {
@@ -11,7 +12,8 @@ export const setToken = (data) => {
     Cookies.set('jwt', data.jwt);
 
     if (Cookies.get('username')) {
-        Router.reload('/');
+        // Router.reload('/');
+        return true;
     }
 };
 
@@ -23,7 +25,8 @@ export const unsetToken = () => {
     Cookies.remove('jwt');
     Cookies.remove('username');
 
-    Router.reload('/');
+    // Router.reload('/');
+    redirect('/')
 };
 
 export const getUserFromLocalCookie = () => {

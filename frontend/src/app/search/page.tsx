@@ -11,8 +11,8 @@ import { useEffect, useState } from 'react'
 export default function Search() {
     const searchParams = useSearchParams()
 
-    const query = searchParams.get('query')
-    const [posts, setPosts] = useState([]);
+    const query = searchParams?.get('query')
+    const [posts, setPosts] = useState<any>([]);
 
     const fetchPostsByTag = async (tag: any) => {
         try {
@@ -40,7 +40,7 @@ export default function Search() {
     return (
         <main className="flex min-h-screen bg-slate-300 p-10">
             <div className="grid grid-cols-4 gap-8 h-full">
-                {posts.map(post => {
+                {posts.map((post: any) => {
                 return (
                     <div className="flex flex-col bg-white/60 shadow-lg hover:opacity-80 h-96 overflow-hidden" key={post.attributes.id}>
                     <Link href={`posts/${post.id}`}>

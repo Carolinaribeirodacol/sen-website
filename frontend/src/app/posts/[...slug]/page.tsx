@@ -47,7 +47,7 @@ export default async function Page({params: {slug}}: Props) {
                 </div>
                 <div className="mt-14">
                     <h2 className="pt-6 font-bold mb-6 text-gray-800">Comentários: </h2>
-                    {comments.map(comment => {
+                    {comments.map((comment: any) => {
                         return (
                             <div key={comment.attributes.id} className="p-6 bg-gray-200 rounded-xl w-1/3 flex flex-row mt-6">
                                 <Image

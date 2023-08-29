@@ -28,45 +28,46 @@ type Props = {
   }
 }
 
-export const Navbar = ({items}: Props) => {
-  const checkIfIsLogged = () => {
+export const Navbar = ({ items }: Props) => {
+  const router = useRouter();
+
+  const CheckIfIsLogged = () => {
     const { data: session, status }: any = useSession();
 
     if (status === "authenticated") {
-      const router = useRouter();
 
       router.push('/')
-      
+
       return (
         <div className="flex flex-col text-center">
           <p className="text-sm">{session.user.name}</p>
-          <a 
-            className="text-blue-500 font-light" 
+          <Link
+            className="text-blue-500 font-light"
             href="/api/auth/signout"
           >
             Sair
-          </a>
+          </Link>
         </div>
       )
     }
 
     return (
       <Link href='\login'>
-        <Button typeButton="common" textButton="Entrar"/>
+        <Button typeButton="common" textButton="Entrar" />
       </Link>
     )
   }
 
   return (
     <nav className="bg-white border-b-4 border-b-purple-900 h-36">
-    <div className="flex flex-wrap items-center content-center justify-between m-auto h-full py-4 px-6">
+      <div className="flex flex-wrap items-center content-center justify-between m-auto h-full py-4 px-6">
         <div className="flex items-center">
-            <Image
-              alt="post-image"
-              image={items.attributes.logo}
-              className="w-14 h-14 mr-4"
-            />
-            <span className="violet-600 text-lg">Sēn</span>
+          <Image
+            alt="post-image"
+            image={items.attributes.logo}
+            className="w-14 h-14 mr-4"
+          />
+          <span className="violet-600 text-lg">Sēn</span>
         </div>
         <div className="hidden w-full md:block md:w-auto text-lg" id="navbar-default">
           <ul className="font-medium flex flex-row items-center content-center gap-6">
@@ -74,11 +75,11 @@ export const Navbar = ({items}: Props) => {
               <SearchBar />
             </li>
             <li>
-              {checkIfIsLogged()}
+              {CheckIfIsLogged()}
             </li>
           </ul>
         </div>
-    </div>
+      </div>
     </nav>
   );
 }
