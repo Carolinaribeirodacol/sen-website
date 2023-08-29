@@ -1,9 +1,11 @@
 "use client"
 import { Button } from "@/components/ui/Button";
-import { getStrapiURL } from "@/helpers/api";
-import { signIn, signOut } from "next-auth/react";
 import Link from "next/link";
-import { FormEvent } from "react";
+import { useState } from 'react';
+import { fetcher } from '../../lib/api.js';
+import { setToken, unsetToken } from '../../lib/auth.js';
+import { useUser } from '../../lib/authContext';
+import { getStrapiURL } from "@/helpers/api.ts";
 
 export default function Login({session}: any) {
     const signInButtonNode = () => {
@@ -24,24 +26,36 @@ export default function Login({session}: any) {
         )
     };
 
-    // identifier: formData.email,
-        // password: formData.password,
+    const [data, setData] = useState({
+        identifier: '',
+        password: '',
+      });
+    
+      const { user, loading } = useUser();
+    
+      const handleSubmit = async (e) => {
+        e.preventDefault();
+    
+        const responseData = await fetcher(
+          `http://localhost:1337/auth/local`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              identifier: data.identifier,
+              password: data.password,
+            }),
+          }
+        );
 
-    async function onSubmit(event: FormEvent<HTMLFormElement>) {
-        event.preventDefault()
-     
-        const formData = new FormData(event.currentTarget)
+        setToken(responseData);
+      };
 
-        console.log(formData)
-
-        // const response = await fetch(`${getStrapiURL}/auth/local`, {
-        //   method: 'POST',
-        //   body: formData,
-        // })
-     
-        const data = await response.json()
-      
-    }
+    const handleChange = (e) => {
+        setData({ ...data, [e.target.name]: e.target.value });
+    };
 
     return (
         <main className="flex justify-center items-center min-h-screen bg-slate-300 p-10">
@@ -52,7 +66,7 @@ export default function Login({session}: any) {
                     >
                         Entre ou cadastre-se
                     </h1>
-                    <form onSubmit={onSubmit} className="space-y-4 md:space-y-6" action="#">
+                    <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6" action="#">
                         <div>
                             <label 
                                 className="block mb-2 text-sm font-medium text-gray-800"
@@ -62,7 +76,8 @@ export default function Login({session}: any) {
                             <input 
                                 type="email"
                                 name="email" 
-                                id="email" 
+                                id="email"
+                                onChange={handleChange}
                                 className="bg-gray-400/40 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" 
                                 placeholder="name@company.com" 
                             />
@@ -77,6 +92,7 @@ export default function Login({session}: any) {
                                 type="password" 
                                 name="password" 
                                 id="password" 
+                                onChange={handleChange}
                                 placeholder="••••••••" 
                                 className="bg-gray-400/40 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" 
                             />
