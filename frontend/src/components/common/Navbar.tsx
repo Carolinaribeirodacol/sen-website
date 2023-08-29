@@ -6,6 +6,7 @@ import { Button } from "../ui/Button";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { useUser } from "@/lib/authContext";
 
 type Props = {
   items: {
@@ -30,6 +31,8 @@ type Props = {
 
 export const Navbar = ({ items }: Props) => {
   const router = useRouter();
+  const { user, loading } = useUser();
+  console.log({ user, loading })
 
   const CheckIfIsLogged = () => {
     const { data: session, status }: any = useSession();
@@ -54,6 +57,7 @@ export const Navbar = ({ items }: Props) => {
     return (
       <Link href='\login'>
         <Button typeButton="common" textButton="Entrar" />
+        {user}
       </Link>
     )
   }

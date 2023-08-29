@@ -1,17 +1,15 @@
-"use client"
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import { Navbar } from '@/components/common/Navbar'
 import { getStrapiAPIURL } from '@/helpers/api'
-import { SessionProvider } from 'next-auth/react'
+import { DefaultLayout } from '@/components/layouts/DefaultLayout'
 
 const inter = Inter({ subsets: ['latin'] })
 
-// export const metadata: Metadata = {
-//   title: 'Sen Website',
-//   description: 'Site criado para um escritor',
-// }
+export const metadata: Metadata = {
+  title: 'Sen Website',
+  description: 'Site criado para um escritor',
+}
 
 async function getNavbarData() {
   try {
@@ -37,10 +35,9 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <SessionProvider>
-          <Navbar items={navbar} />
+        <DefaultLayout navbar={navbar}>
           {children}
-        </SessionProvider>
+        </DefaultLayout>
       </body>
     </html>
   )
