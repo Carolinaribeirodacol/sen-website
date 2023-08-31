@@ -31,19 +31,22 @@ type Props = {
 
 export const Navbar = ({ items }: Props) => {
   const router = useRouter();
-  const { user, loading } = useUser();
-  console.log({ user, loading })
+  const { user } = useUser();
 
   const CheckIfIsLogged = () => {
     const { data: session, status }: any = useSession();
 
-    if (status === "authenticated") {
+    console.log(session, user)
+
+    if (status === "authenticated" || user) {
+      const username = session.user.name ? session.user.name : user.username;
 
       router.push('/')
+      // const username = 'a';
 
       return (
         <div className="flex flex-col text-center">
-          <p className="text-sm">{session.user.name}</p>
+          <p className="text-sm">{username}</p>
           <Link
             className="text-blue-500 font-light"
             href="/api/auth/signout"

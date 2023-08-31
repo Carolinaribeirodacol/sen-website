@@ -1,53 +1,32 @@
 "use client"
 import { Button } from "@/components/ui/Button";
-import Link from "next/link";
 import { useState } from 'react';
 import { fetcher } from '../../lib/api.js';
 import { setToken } from '../../lib/auth.js';
-import { useUser } from '../../lib/authContext';
-import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
-export default function Login({ session }: any) {
+export default function Register() {
     const router = useRouter()
 
-    const signInButtonNode = () => {
-        if (session) {
-            return false;
-        }
-
-        return (
-            <Link href="/api/auth/signin">
-                <Button
-                    onClick={(e) => {
-                        e.preventDefault();
-                        signIn();
-                    }}
-                    typeButton="google"
-                />
-            </Link>
-        )
-    };
-
     const [data, setData] = useState({
-        identifier: '',
+        username: '',
+        email: '',
         password: '',
     });
-
-    const { user, loading } = useUser();
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
 
         const responseData = await fetcher(
-            `http://localhost:1337/api/auth/local`,
+            `http://localhost:1337/api/auth/local/register`,
             {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    identifier: data.identifier,
+                    username: data.username,
+                    email: data.email,
                     password: data.password,
                 }),
             }
@@ -69,18 +48,33 @@ export default function Login({ session }: any) {
                     <h1
                         className="text-xl font-bold leading-tight tracking-tight text-purple-900 text-center"
                     >
-                        Entre ou cadastre-se
+                        Cadastro
                     </h1>
                     <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6" action="#">
                         <div>
                             <label
                                 className="block mb-2 text-sm font-medium text-gray-800"
                             >
-                                Seu email
+                                Nome
+                            </label>
+                            <input
+                                type="text"
+                                name="username"
+                                id="username"
+                                onChange={handleChange}
+                                className="bg-gray-400/40 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                placeholder="Fulano de tal"
+                            />
+                        </div>
+                        <div>
+                            <label
+                                className="block mb-2 text-sm font-medium text-gray-800"
+                            >
+                                Email
                             </label>
                             <input
                                 type="email"
-                                name="identifier"
+                                name="email"
                                 id="email"
                                 onChange={handleChange}
                                 className="bg-gray-400/40 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
@@ -102,36 +96,10 @@ export default function Login({ session }: any) {
                                 className="bg-gray-400/40 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                             />
                         </div>
-                        <div className="flex items-center justify-between">
-                            {/* <div className="flex items-start">
-                                <div className="flex items-center h-5">
-                                    <input
-                                        id="remember"
-                                        aria-describedby="remember"
-                                        type="checkbox"
-                                        className="w-4 h-4 rounded bg-gray-400/40 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
-                                    />
-                                </div>
-                                <div className="ml-3 text-sm">
-                                    <label className="text-gray-800">Lembrar</label>
-                                </div>
-                            </div> */}
-                            <a
-                                href="#"
-                                className="text-sm font-medium text-primary-600 hover:underline text-blue-400"
-                            >
-                                Esqueceu a senha?
-                            </a>
-                        </div>
 
-                        <div className="flex flex-wrap content-center justify-center">
-                            <Button type="submit" typeButton="common" textButton="Entrar" />
-                            {signInButtonNode()}
+                        <div className="flex flex-wrap content-center  justify-center">
+                            <Button type="submit" typeButton="common" textButton="Cadastrar" />
                         </div>
-
-                        <p className="text-sm font-light text-gray-800">
-                            Ainda não possui cadastro? <a href="/register" className="font-medium text-blue-400 hover:underline">Cadastrar</a>
-                        </p>
                     </form>
                 </div>
             </div>
