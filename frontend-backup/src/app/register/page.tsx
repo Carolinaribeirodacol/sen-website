@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/Button";
 import { useState } from 'react';
 import { fetcher } from '../../lib/api.js';
 import { setToken } from '../../lib/auth.js';
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation.js";
 
 export default function Register() {
     const router = useRouter()

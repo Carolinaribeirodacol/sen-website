@@ -1,6 +1,6 @@
-import { Image } from "@/components/Image";
-import { Markdown } from "@/components/Markdown";
+import { Markdown } from "@/components/ui/Markdown";
 import { getStrapiAPIURL } from "@/helpers/api";
+import Image from "next/image";
 
 type Props = {
     params: {
@@ -11,7 +11,7 @@ type Props = {
 async function getPostData(slug: string) {
     try {
         const response = await fetch(
-            getStrapiAPIURL(`posts/${slug}?populate=*`),
+            getStrapiAPIURL(`posts/${slug}?populate=*`), 
             { cache: 'no-store' }
         );
 
@@ -24,7 +24,7 @@ async function getPostData(slug: string) {
 async function getComments(postId: number) {
     try {
         const response = await fetch(
-            getStrapiAPIURL(`comments?postId=${postId}&populate=*`),
+            getStrapiAPIURL(`comments?postId=${postId}&populate=*`), 
             { cache: 'no-store' }
         );
 
@@ -34,12 +34,12 @@ async function getComments(postId: number) {
     }
 }
 
-export default async function Page({ params: { slug } }: Props) {
+export default async function Page({params: {slug}}: Props) {    
     const { data: post } = await getPostData(slug);
     const { data: comments } = await getComments(post.id);
 
     return (
-        <main className="flex text-gray-800 min-h-screen bg-[url('/assets/bg-forest.jpg')] object-cover w-full mx-auto">
+        <main className="flex min-h-screen bg-[url('/assets/bg-forest.jpg')] object-cover w-full mx-auto">
             <div className="flex flex-col justify-between bg-slate-200/80 m-20 p-10 backdrop-blur-sm divide-y">
                 <div>
                     <h1 className="py-6 text-center text-4xl text-purple-900 font-bold">{post.attributes.title}</h1>
@@ -47,19 +47,16 @@ export default async function Page({ params: { slug } }: Props) {
                 </div>
                 <div className="mt-14">
                     <h2 className="pt-6 font-bold mb-6 text-gray-800">Comentários: </h2>
-                    <textarea rows={6} className="p-4 rounded-xl w-full" placeholder="Seu comentário aqui..." />
                     {comments.map((comment: any) => {
                         return (
                             <div key={comment.attributes.id} className="p-6 bg-gray-200 rounded-xl w-1/3 flex flex-row mt-6">
-                                {comment.attributes && comment.attributes.image && comment.attributes.image.data ? (
-                                    <Image
-                                        image={comment.attributes.image}
-                                        alt="Picture of the author"
-                                        className="mr-4 w-10"
-                                    />
-                                ) : (
-                                    <div className="w-6 h-6 bg-purple-900"></div>
-                                )}
+                                <Image
+                                    src="/assets/avatar.svg"
+                                    width={40}
+                                    height={40}
+                                    alt="Picture of the author"
+                                    className="mr-4"
+                                />
                                 <span>
                                     <h2 className="text-sm w-fit font-bold">{comment.attributes.author}</h2>
                                     <p>{comment.attributes.content}</p>

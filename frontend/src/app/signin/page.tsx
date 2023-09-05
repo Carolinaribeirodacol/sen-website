@@ -1,65 +1,39 @@
-"use client"
-import { Button } from "@/components/ui/Button";
-import Link from "next/link";
-import { useState } from 'react';
-import { fetcher } from '../../lib/api.js';
-import { setToken } from '../../lib/auth.js';
-import { useUser } from '../../lib/authContext';
-import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
+'use client'
 
-export default function Login({ session }: any) {
-    const router = useRouter()
+import React, { useState } from "react"
+import { useSearchParams } from 'next/navigation'
+import { signIn } from "next-auth/react"
+import { Button } from "@/components/Button"
 
-    const signInButtonNode = () => {
-        if (session) {
-            return false;
-        }
-
-        return (
-            <Link href="/api/auth/signin">
-                <Button
-                    onClick={(e) => {
-                        e.preventDefault();
-                        signIn();
-                    }}
-                    typeButton="google"
-                />
-            </Link>
-        )
-    };
-
-    const [data, setData] = useState({
-        identifier: '',
+export default function SignIn() {
+    const [form, setForm] = useState({
+        email: '',
         password: '',
     });
 
-    const { user, loading } = useUser();
-
-    const handleSubmit = async (e: any) => {
-        e.preventDefault();
-
-        const responseData = await fetcher(
-            `http://localhost:1337/api/auth/local`,
-            {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    identifier: data.identifier,
-                    password: data.password,
-                }),
-            }
-        );
-
-        if (setToken(responseData)) {
-            router.push('/')
-        }
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setForm({
+            ...form,
+            [event.target.name]: event.target.value
+        })
     };
 
-    const handleChange = (e: any) => {
-        setData({ ...data, [e.target.name]: e.target.value });
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault()
+
+        const result = await signIn("credentials", {
+            email: form.email,
+            password: form.password,
+            redirect: true,
+            callbackUrl: "/",
+        });
+    }
+
+    const searchParams = useSearchParams();
+    const callbackUrl = searchParams.get("callbackUrl") || "/";
+
+    const handleSignIn = (provider: string) => {
+        signIn(provider, { callbackUrl });
     };
 
     return (
@@ -80,8 +54,7 @@ export default function Login({ session }: any) {
                             </label>
                             <input
                                 type="email"
-                                name="identifier"
-                                id="email"
+                                name="email"
                                 onChange={handleChange}
                                 className="bg-gray-400/40 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                                 placeholder="name@company.com"
@@ -96,7 +69,6 @@ export default function Login({ session }: any) {
                             <input
                                 type="password"
                                 name="password"
-                                id="password"
                                 onChange={handleChange}
                                 placeholder="••••••••"
                                 className="bg-gray-400/40 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
@@ -117,7 +89,7 @@ export default function Login({ session }: any) {
                                 </div>
                             </div> */}
                             <a
-                                href="#"
+                                href="/reset-password"
                                 className="text-sm font-medium text-primary-600 hover:underline text-blue-400"
                             >
                                 Esqueceu a senha?
@@ -126,11 +98,23 @@ export default function Login({ session }: any) {
 
                         <div className="flex flex-wrap content-center justify-center">
                             <Button type="submit" typeButton="common" textButton="Entrar" />
-                            {signInButtonNode()}
+                            {/* <button
+                                onClick={() => handleSignIn("google")}
+                                type="button"
+                                className="text-white bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 m-0 p-0"
+                            >
+                                <svg className="w-4 h-4 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 19">
+                                    <path fillRule="evenodd" d="M8.842 18.083a8.8 8.8 0 0 1-8.65-8.948 8.841 8.841 0 0 1 8.8-8.652h.153a8.464 8.464 0 0 1 5.7 2.257l-2.193 2.038A5.27 5.27 0 0 0 9.09 3.4a5.882 5.882 0 0 0-.2 11.76h.124a5.091 5.091 0 0 0 5.248-4.057L14.3 11H9V8h8.34c.066.543.095 1.09.088 1.636-.086 5.053-3.463 8.449-8.4 8.449l-.186-.002Z" clipRule="evenodd" />
+                                </svg>
+                                Entrar com Google
+                            </button> */}
                         </div>
 
                         <p className="text-sm font-light text-gray-800">
-                            Ainda não possui cadastro? <a href="/register" className="font-medium text-blue-400 hover:underline">Cadastrar</a>
+                            Ainda não possui cadastro?
+                            <a href="/signup" className="font-medium text-blue-400 hover:underline pl-2">
+                                Cadastrar
+                            </a>
                         </p>
                     </form>
                 </div>
