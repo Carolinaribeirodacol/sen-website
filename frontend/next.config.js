@@ -1,4 +1,4 @@
-const remotePatterns = (process.env.NODE_ENV === 'development')
+const remotePatterns = process.env.NODE_ENV === 'development'
     ? [
         {
             hostname: 'localhost',
@@ -14,6 +14,10 @@ const remotePatterns = (process.env.NODE_ENV === 'development')
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+    images: {
+        domains: ['*'],
+        formats: ['image/avif', 'image/webp', 'image/png', 'image;jpg'],
+    },
     experimental: {
         appDir: true,
     },
