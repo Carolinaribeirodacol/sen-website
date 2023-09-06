@@ -66,7 +66,6 @@ export const options: NextAuthOptions = {
         // Handle CredentialsProvider-specific logic here
         if (isSignIn) {
           token.id = user.id;
-          token.jwt = user.jwt;
         }
       } else if (account?.provider === "google") {
         // Handle GoogleProvider-specific logic here
