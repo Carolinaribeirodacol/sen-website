@@ -16,15 +16,17 @@ export default function Search() {
 
     // Função assíncrona que chama a função fetchPostsByTag
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    const searchPosts = async () => {
-        if (query) {
-            await fetchPostsByTag(query);
-        }
-    };
+    // const searchPosts = async () => {
+    //     if (query) {
+    //         await fetchPostsByTag(query);
+    //     }
+    // };
 
     useEffect(() => {
-        searchPosts();
-    }, [query, searchPosts]);
+        if (query) {
+            fetchPostsByTag(query);
+        }
+    }, [query]);
 
     const fetchPostsByTag = async (tag: any) => {
         try {
