@@ -54,7 +54,6 @@ export const options: NextAuthOptions = {
   callbacks: {
     async session({ session, token }) {
       session.user = token as any;
-      session.jwt = token.jwt as any;
       
       return Promise.resolve(session);
     },
