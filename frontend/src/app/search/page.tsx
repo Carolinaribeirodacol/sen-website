@@ -14,16 +14,17 @@ export default function Search() {
     const query = searchParams?.get('query')
     const [posts, setPosts] = useState<any>([]);
 
-    useEffect(() => {
-        searchPosts();
-    });
-
     // Função assíncrona que chama a função fetchPostsByTag
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const searchPosts = async () => {
         if (query) {
             await fetchPostsByTag(query);
         }
     };
+
+    useEffect(() => {
+        searchPosts();
+    }, [query, searchPosts]);
 
     const fetchPostsByTag = async (tag: any) => {
         try {
