@@ -14,16 +14,9 @@ export default function Search() {
     const query = searchParams?.get('query')
     const [posts, setPosts] = useState<any>([]);
 
-    const fetchPostsByTag = async (tag: any) => {
-        try {
-            const posts = await getPostByTag(tag);
-            setPosts(posts.data);
-
-            console.log(posts.data[0].attributes.slug)
-        } catch (error) {
-            console.error("Error fetching posts:", error);
-        }
-    };
+    useEffect(() => {
+        searchPosts();
+    });
 
     // Função assíncrona que chama a função fetchPostsByTag
     const searchPosts = async () => {
@@ -32,10 +25,14 @@ export default function Search() {
         }
     };
 
-    useEffect(() => {
-        searchPosts();
-    }, [query]);
-
+    const fetchPostsByTag = async (tag: any) => {
+        try {
+            const posts = await getPostByTag(tag);
+            setPosts(posts.data);
+        } catch (error) {
+            console.error("Error fetching posts:", error);
+        }
+    };
 
     return (
         <main className="flex min-h-screen bg-slate-300 p-10">
