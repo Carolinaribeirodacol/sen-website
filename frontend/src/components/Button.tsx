@@ -9,7 +9,7 @@ type Props = {
 
 export const Button = ({ typeButton, type, textButton, onClick }: Props) => {
   return (
-    <>
+    <div className="flex flex-wrap content-center justify-center">
       {typeButton === 'google' ? (
         <button
           onClick={onClick}
@@ -35,11 +35,11 @@ export const Button = ({ typeButton, type, textButton, onClick }: Props) => {
         <button
           onClick={onClick}
           type={type}
-          className="text-white bg-purple-900 hover:bg-purple-950 focus:ring-2 font-medium rounded-lg text-sm px-8 py-2.5 mr-2 mb-2"
+          className="text-white bg-purple-900 hover:bg-purple-950 focus:ring-2 font-medium rounded-lg text-sm px-8 py-2.5"
         >
           {textButton}
         </button>
       )}
-    </>
+    </div>
   );
 };

@@ -4,6 +4,8 @@ import React, { useState } from "react"
 import { useSearchParams } from 'next/navigation'
 import { signIn } from "next-auth/react"
 import { Button } from "@/components/Button"
+import { TextField } from "@/components/TextField"
+import { Form } from "@/components/Form"
 
 export default function SignIn() {
     const [form, setForm] = useState({
@@ -21,7 +23,7 @@ export default function SignIn() {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
 
-        const result = await signIn("credentials", {
+        await signIn("credentials", {
             email: form.email,
             password: form.password,
             redirect: true,
@@ -45,35 +47,9 @@ export default function SignIn() {
                     >
                         Entre ou cadastre-se
                     </h1>
-                    <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6" action="#">
-                        <div>
-                            <label
-                                className="block mb-2 text-sm font-medium text-gray-800"
-                            >
-                                Seu email
-                            </label>
-                            <input
-                                type="email"
-                                name="email"
-                                onChange={handleChange}
-                                className="bg-gray-400/40 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                                placeholder="name@company.com"
-                            />
-                        </div>
-                        <div>
-                            <label
-                                className="block mb-2 text-sm font-medium text-gray-800"
-                            >
-                                Senha
-                            </label>
-                            <input
-                                type="password"
-                                name="password"
-                                onChange={handleChange}
-                                placeholder="••••••••"
-                                className="bg-gray-400/40 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                            />
-                        </div>
+                    <Form onSubmit={handleSubmit} action="#">
+                        <TextField text="Email" typeInput="email" nameInput="email" onChange={handleChange} placeholder="name@gmail.com" />
+                        <TextField text="Senha" typeInput="password" nameInput="password" onChange={handleChange} placeholder="••••••••" />
                         <div className="flex items-center justify-between">
                             {/* <div className="flex items-start">
                                 <div className="flex items-center h-5">
@@ -96,9 +72,8 @@ export default function SignIn() {
                             </a>
                         </div>
 
-                        <div className="flex flex-wrap content-center justify-center">
-                            <Button type="submit" typeButton="common" textButton="Entrar" />
-                            {/* <button
+                        <Button type="submit" typeButton="common" textButton="Entrar" />
+                        {/* <button
                                 onClick={() => handleSignIn("google")}
                                 type="button"
                                 className="text-white bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 m-0 p-0"
@@ -108,7 +83,6 @@ export default function SignIn() {
                                 </svg>
                                 Entrar com Google
                             </button> */}
-                        </div>
 
                         <p className="text-sm font-light text-gray-800">
                             Ainda não possui cadastro?
@@ -116,7 +90,7 @@ export default function SignIn() {
                                 Cadastrar
                             </a>
                         </p>
-                    </form>
+                    </Form>
                 </div>
             </div>
         </main>

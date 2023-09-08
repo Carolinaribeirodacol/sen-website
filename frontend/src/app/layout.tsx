@@ -40,7 +40,6 @@ export default async function RootLayout({
       <body className={inter.className}>
         <NextAuthProvider>
           <Navbar items={navbar} />
-          <Navigation />
           {children}
         </NextAuthProvider>
       </body>

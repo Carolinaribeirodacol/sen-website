@@ -3,6 +3,8 @@ import { useState } from 'react';
 import { useRouter } from "next/navigation";
 import { Button } from '@/components/Button';
 import { getStrapiAPIURL } from '@/helpers/api';
+import { Form } from '@/components/Form';
+import { TextField } from '@/components/TextField';
 
 export default function SignUp() {
     const router = useRouter();
@@ -58,72 +60,14 @@ export default function SignUp() {
                     >
                         Cadastro
                     </h1>
-                    <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6" action="#">
-                        <div>
-                            <label
-                                className="block mb-2 text-sm font-medium text-gray-800"
-                            >
-                                Nome
-                            </label>
-                            <input
-                                type="text"
-                                name="username"
-                                id="username"
-                                onChange={handleChange}
-                                className="bg-gray-400/40 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                                placeholder="Fulano de tal"
-                            />
-                        </div>
-                        <div>
-                            <label
-                                className="block mb-2 text-sm font-medium text-gray-800"
-                            >
-                                Nome de usuário
-                            </label>
-                            <input
-                                type="text"
-                                name="name"
-                                id="name"
-                                onChange={handleChange}
-                                className="bg-gray-400/40 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                                placeholder="Fulano de tal"
-                            />
-                        </div>
-                        <div>
-                            <label
-                                className="block mb-2 text-sm font-medium text-gray-800"
-                            >
-                                Email
-                            </label>
-                            <input
-                                type="email"
-                                name="email"
-                                id="email"
-                                onChange={handleChange}
-                                className="bg-gray-400/40 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                                placeholder="name@company.com"
-                            />
-                        </div>
-                        <div>
-                            <label
-                                className="block mb-2 text-sm font-medium text-gray-800"
-                            >
-                                Senha
-                            </label>
-                            <input
-                                type="password"
-                                name="password"
-                                id="password"
-                                onChange={handleChange}
-                                placeholder="••••••••"
-                                className="bg-gray-400/40 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                            />
-                        </div>
+                    <Form onSubmit={handleSubmit} action="#">
+                        <TextField text="Username" typeInput="text" nameInput="username" onChange={handleChange} placeholder="Maria" />
+                        <TextField text="Nome e sobrenome" typeInput="text" nameInput="name" onChange={handleChange} placeholder="Maria" />
+                        <TextField text="Email" typeInput="email" nameInput="email" onChange={handleChange} placeholder="name@gmail.com" />
+                        <TextField text="Senha" typeInput="password" nameInput="password" onChange={handleChange} placeholder="••••••••" />
 
-                        <div className="flex flex-wrap content-center  justify-center">
-                            <Button type="submit" typeButton="common" textButton="Cadastrar" />
-                        </div>
-                    </form>
+                        <Button type="submit" typeButton="common" textButton="Cadastrar" />
+                    </Form>
                 </div>
             </div>
         </main>

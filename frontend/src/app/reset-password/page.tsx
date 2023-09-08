@@ -61,9 +61,7 @@ export default function ForgotPassword() {
                             />
                         </div>
 
-                        <div className="flex flex-wrap content-center justify-center">
-                            <Button type="submit" typeButton="common" textButton="Enviar" />
-                        </div>
+                        <Button type="submit" typeButton="common" textButton="Enviar" />
                     </form>
                 </div>
             </div>
