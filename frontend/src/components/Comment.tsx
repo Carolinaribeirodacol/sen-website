@@ -7,7 +7,7 @@ import { TextArea } from "./TextArea"
 import { getStrapiAPIURL } from "@/helpers/api"
 import { useSession } from "next-auth/react"
 
-export const Comment = () => {
+export const Comment = ({ postId }: number) => {
     const { data: session } = useSession()
 
     const [form, setForm] = useState({
@@ -34,9 +34,10 @@ export const Comment = () => {
                     },
                     body: JSON.stringify({
                         data: {
-                            attributes: {
-                                content: form.comment,
-                                author: session?.user?.name
+                            content: form.comment,
+                            author: session?.user?.name ? session.user.name : "Anônimo",
+                            post: {
+                                id: postId
                             }
                         }
                     }),

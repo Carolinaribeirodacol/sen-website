@@ -25,7 +25,7 @@ async function getPostData(slug: string) {
 async function getComments(postId: number) {
     try {
         const response = await fetch(
-            getStrapiAPIURL(`comments?postId=${postId}&populate=*`),
+            getStrapiAPIURL(`posts?postId=${postId}&populate=*`),
             { cache: 'no-store' }
         );
 
@@ -37,7 +37,6 @@ async function getComments(postId: number) {
 
 export default async function Page({ params: { slug } }: Props) {
     const { data: post } = await getPostData(slug);
-    const { data: comments } = await getComments(post.id);
 
     return (
         <main className="flex justify-center items-center min-h-screen bg-slate-300 p-10">
@@ -47,8 +46,8 @@ export default async function Page({ params: { slug } }: Props) {
                     <Markdown className="break-all">{post.attributes.content}</Markdown>
                 </div>
                 <div className="mt-14">
-                    <Comment />
-                    {comments.map((comment: any) => {
+                    <Comment postId={post.id} />
+                    {post.attributes.comments.data.map((comment: any) => {
                         return (
                             <div key={comment.attributes.id} className="p-6 bg-gray-200 rounded-xl flex flex-row mt-6">
                                 {comment.attributes && comment.attributes.image && comment.attributes.image.data ? (
