@@ -30,54 +30,95 @@ type Props = {
 export const Navbar = ({ items }: Props) => {
   const { data: session } = useSession()
 
+  const btn = document.getElementById("menuButton")
+  const menu = document.getElementById("menu")
+
+  btn?.addEventListener("click", () => {
+    // alert("Abrir menu")
+    // Remove a classe hidden do meu elemento com id "menu".
+    menu?.classList.toggle("hidden")
+  })
+
   return (
-    <nav className="bg-white border-b-4 border-b-purple-900 h-36 top-0 left-0 right-0">
-      <div className="flex items-center content-center justify-between m-auto h-full py-4 px-6">
-        <div>
-          {/* <pre className="bg-black text-white">
-            <code>{JSON.stringify(session, null, 2)}</code>
-          </pre> */}
-          <Link className="flex items-center" href='/'>
-            <Image
-              alt="post-image"
-              image={items.attributes.logo}
-              className="w-14 h-14 mr-4"
-            />
+    <nav className="bg-white border-b-4 border-b-purple-900 top-0 left-0 right-0">
+      <div className="max-w-7x1 mx-auto py-4 px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-36">
+          <div className="flex items-center">
+            <Link href='/'>
+              <Image
+                alt="post-image"
+                image={items.attributes.logo}
+                className="flex-shrink-0 w-14 h-14 mr-4"
+              />
+            </Link>
             <span className="text-violet-900 font-medium text-lg">
               Sēn
             </span>
-          </Link>
+          </div>
+
+          <div className="hidden md:block">
+            <div className="flex flex-row gap-8">
+              <SearchBar />
+              {session?.user ? (
+                <>
+                  <div className="flex flex-col content-center items-center">
+                    <span className="text-gray-800 text-xs font-semibold">{session.user.name}</span>
+                    <button
+                      className="text-purple-900 bg-white hover:bg-purple-900 hover:text-white
+                    focus:ring-2 font-medium rounded-lg text-xs px-4 py-2.5 transition duration-150 easy-in-out"
+                      onClick={() => signOut()}
+                    >
+                      Sair
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <Link href="/signin">
+                  <Button typeButton="common" textButton="Entrar" />
+                </Link>
+              )}
+            </div>
+          </div>
+
+          <div className="-mr-2 flex md:hidden">
+            <button id="menuButton" type="button"
+              className="text-purple-900 inline-flex items-center justify-center p-2 hover:bg-gray-100
+                rounded-md hover:text-purple-950 focus:outline-none focus:bg-gray-100 transition duration-150 easy-in-out"
+              aria-label="Menu"
+              aria-expanded="false"
+            >
+              <svg className="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16"></path>
+              </svg>
+            </button>
+          </div>
         </div>
-        <div className="flex flex-nowrap items-center w-auto text-lg gap-6" id="navbar-default">
+      </div >
+
+      <div id="menu" className="hidden md:hidden bg-purple-900 text-white">
+        <div className="px-2 pt-2 pd-3 sm:px-3">
           <SearchBar />
           {session?.user ? (
             <>
-              <ul>
-                <li className="text-gray-800 text-sm">{session.user.name}</li>
-                <li>
-                  <button
-                    className="text-white bg-purple-900 hover:bg-purple-950 
-                      focus:ring-2 font-medium rounded-lg text-sm px-8 py-2.5 mr-2 mb-2"
-                    onClick={() => signOut()}
-                  >
-                    Sair
-                  </button>
-                </li>
-              </ul>
+              <div className="flex flex-col content-center items-center">
+                <span className="text-gray-800 text-xs font-semibold">{session.user.name}</span>
+                <button
+                  className="text-purple-900 bg-white hover:bg-purple-900 hover:text-white
+                    focus:ring-2 font-medium rounded-lg text-xs px-4 py-2.5 transition duration-150 easy-in-out"
+                  onClick={() => signOut()}
+                >
+                  Sair
+                </button>
+              </div>
             </>
           ) : (
-            <>
-              <ul>
-                <li>
-                  <Link href="/signin">
-                    <Button typeButton="common" textButton="Entrar" />
-                  </Link>
-                </li>
-              </ul>
-            </>
+            <Link href="/signin">
+              <Button typeButton="common" textButton="Entrar" />
+            </Link>
           )}
         </div>
       </div>
-    </nav>
+    </nav >
+
   );
 }
