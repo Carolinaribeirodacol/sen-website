@@ -5,6 +5,9 @@ import { signOut, useSession } from "next-auth/react";
 import { Button } from "./Button";
 import { SearchBar } from "./SearchBar";
 import { Image } from "./Image";
+import { Dropdown } from "./Dropdown";
+import Icon from "@mdi/react";
+import { mdiAccountEdit, mdiExitToApp } from "@mdi/js";
 
 type Props = {
   items: {
@@ -25,6 +28,10 @@ type Props = {
       }>
     }
   }
+}
+
+const editAccount = () => {
+
 }
 
 export const Navbar = ({ items }: Props) => {
@@ -61,16 +68,29 @@ export const Navbar = ({ items }: Props) => {
               <SearchBar />
               {session?.user ? (
                 <>
-                  <div className="flex flex-col content-center items-center">
-                    <span className="text-gray-800 text-xs font-semibold">{session.user.name}</span>
-                    <button
-                      className="text-purple-900 bg-white hover:bg-purple-900 hover:text-white
-                    focus:ring-2 font-medium rounded-lg text-xs px-4 py-2.5 transition duration-150 easy-in-out"
-                      onClick={() => signOut()}
-                    >
-                      Sair
-                    </button>
-                  </div>
+                  <Dropdown title={session.user.name}>
+                    <div className="flex w-full justify-between hover:bg-purple-900 cursor-pointer rounded-r-lg 
+                      border-l-transparent hover:border-l-white border-l-4 p-4">
+                      <button
+                        className="text-white bg-transparent flex flex-row space-x-2"
+                        onClick={() => editAccount()}
+                      >
+                        <Icon path={mdiAccountEdit} size={1} />
+                        <span>Editar conta</span>
+                      </button>
+                    </div>
+
+                    <div className="flex w-full justify-between hover:bg-purple-900 cursor-pointer rounded-r-lg 
+                            border-l-transparent hover:border-l-white border-l-4 p-4">
+                      <button
+                        className="text-white bg-transparent flex flex-row space-x-2"
+                        onClick={() => signOut()}
+                      >
+                        <Icon path={mdiExitToApp} size={1} />
+                        <span>Sair</span>
+                      </button>
+                    </div>
+                  </Dropdown>
                 </>
               ) : (
                 <Link href="/signin">
@@ -98,7 +118,7 @@ export const Navbar = ({ items }: Props) => {
       <div id="menu" className="hidden md:hidden bg-purple-900 text-white">
         <div className="px-2 pt-2 pd-3 sm:px-3">
           <SearchBar />
-          {session?.user ? (
+          {/* {session?.user ? (
             <>
               <div className="flex flex-col content-center items-center">
                 <span className="text-gray-800 text-xs font-semibold">{session.user.name}</span>
@@ -115,7 +135,7 @@ export const Navbar = ({ items }: Props) => {
             <Link href="/signin">
               <Button typeButton="common" textButton="Entrar" />
             </Link>
-          )}
+          )} */}
         </div>
       </div>
     </nav >
