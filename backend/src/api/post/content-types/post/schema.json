@@ -54,6 +54,9 @@
       "relation": "oneToMany",
       "target": "api::comment.comment",
       "mappedBy": "post"
+    },
+    "abstract": {
+      "type": "text"
     }
   }
 }

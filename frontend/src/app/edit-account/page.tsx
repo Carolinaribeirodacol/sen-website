@@ -1,40 +1,50 @@
 "use client"
-import { useState } from 'react';
-import { useRouter } from "next/navigation";
+import React, { useState } from 'react';
+import { useSession } from 'next-auth/react';
 import { Button } from '@/components/Button';
 import { getStrapiAPIURL } from '@/helpers/api';
 import { Form } from '@/components/Form';
 import { TextField } from '@/components/TextField';
 
-export default function SignUp() {
-    const router = useRouter();
+export default function EditAccount() {
+    const { data: session } = useSession()
+    const [isLoading, setIsLoading] = React.useState<boolean>(false)
+
     const [form, setForm] = useState({
         name: '',
         username: '',
         email: '',
         password: '',
+        image: ''
     });
 
     const handleChange = (e: any) => {
-        setForm({ ...form, [e.target.name]: e.target.value });
+        setForm({
+            ...form,
+            [e.target.name]: e.target.value
+        });
     };
 
-    const handleSubmit = async (e: any) => {
+    const handleSubmit = async (event: any) => {
+        event.preventDefault()
 
-        e.preventDefault();
+        setIsLoading(true)
 
         const { name, username, email, password } = form;
-        const response = await fetch(getStrapiAPIURL('auth/local/register'), {
-            method: 'POST',
+
+        const response = await fetch(getStrapiAPIURL(`users/${session?.user?.id}`), {
+            method: 'PUT',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
+                // Authorization: `Bearer ${}`,
             },
             body: JSON.stringify({
                 name,
                 username,
                 email,
-                password
+                password,
+                // image
             }),
         });
 
@@ -45,7 +55,9 @@ export default function SignUp() {
 
         const data = await response.json();
 
-        router.push('/signin')
+        console.log(data, response)
+
+        setIsLoading(false)
 
         return data;
 
@@ -58,7 +70,7 @@ export default function SignUp() {
                     <h1
                         className="text-xl font-bold leading-tight tracking-tight text-purple-900 text-center"
                     >
-                        Cadastro
+                        Editar cadastro
                     </h1>
                     <Form onSubmit={handleSubmit} action="#">
                         <TextField text="Username" typeInput="text" nameInput="username" onChange={handleChange} placeholder="Maria" />
@@ -66,7 +78,7 @@ export default function SignUp() {
                         <TextField text="Email" typeInput="email" nameInput="email" onChange={handleChange} placeholder="name@gmail.com" />
                         <TextField text="Senha" typeInput="password" nameInput="password" onChange={handleChange} placeholder="••••••••" />
 
-                        <Button type="submit" typeButton="common" textButton="Cadastrar" />
+                        <Button disabled={isLoading} type="submit" typeButton="common" textButton="Atualizar" />
                     </Form>
                 </div>
             </div>

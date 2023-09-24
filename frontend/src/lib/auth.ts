@@ -40,16 +40,18 @@ export const authOptions: NextAuthOptions = {
   debug: true,
   callbacks: {
     async session({ session, token, user }) {
-      // session: async (session, user) => {
+      // const userId = user.id;
       session.user = token as any;
-      // session.jwt = session.user.jwt
-      // session.user = session.user.user
+      // session.id = user.id;
 
-      // return Promise.resolve(session)
       return session
 
     },
     async jwt({ token, user }: any) {
+      if (user) {
+        token.uid = user.id;
+      }
+      
       token.jwt = user.jwt
 
       return token

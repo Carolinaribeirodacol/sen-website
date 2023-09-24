@@ -14,14 +14,13 @@ import {
 import { UserAvatar } from "@/components/UserAvatar"
 import { DefaultJWT } from 'next-auth/jwt'
 import Icon from '@mdi/react';
-import { mdiAccount } from "@mdi/js"
+import { mdiAccount, mdiExitToApp } from "@mdi/js"
 
 interface UserAccountNavProps extends React.HTMLAttributes<HTMLDivElement> {
   user: Pick<DefaultJWT, "name" | "picture" | "email">
 }
 
 export function UserAccountNav({ user }: UserAccountNavProps) {
-  console.log(user);
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
@@ -46,14 +45,15 @@ export function UserAccountNav({ user }: UserAccountNavProps) {
           asChild
           className="cursor-pointer"
         >
-          <Link href="/edit-account">Editar perfil</Link>
+          <Link href="/edit-account">Editar cadastro</Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem
           className="cursor-pointer"
           onSelect={() => signOut()}
         >
-          Sair
+          <span className="mr-2">Sair</span>
+          <Icon size={1} path={mdiExitToApp} />
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
