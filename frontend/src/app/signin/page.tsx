@@ -11,8 +11,8 @@ export default function SignIn() {
     const [isLoading, setIsLoading] = React.useState<boolean>(false)
 
     const [form, setForm] = useState({
-        email: 'bandradelucas@gmail.com',
-        password: 'rukado',
+        email: '',
+        password: '',
     });
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,15 +34,17 @@ export default function SignIn() {
             callbackUrl: "/",
         });
 
+        console.log(signInResult);
+
         setIsLoading(false)
     }
 
     const searchParams = useSearchParams();
     const callbackUrl = searchParams.get("callbackUrl") || "/";
 
-    const handleSignIn = (provider: string) => {
-        signIn(provider, { callbackUrl });
-    };
+    // const handleSignIn = (provider: string) => {
+    //     signIn(provider, { callbackUrl });
+    // };
 
     return (
         <main className="flex justify-center items-center min-h-screen bg-slate-300 p-10">

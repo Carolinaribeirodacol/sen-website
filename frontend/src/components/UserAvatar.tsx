@@ -2,6 +2,8 @@
 import { AvatarProps } from "@radix-ui/react-avatar"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import Icon from "@mdi/react"
+import { mdiAccount } from "@mdi/js"
 // import { Icons } from "@/components/icons"
 
 // interface UserAvatarProps extends AvatarProps {
@@ -16,7 +18,7 @@ export function UserAvatar({ user, ...props }: any) {
       ) : (
         <AvatarFallback>
           <span className="sr-only">{user.name}</span>
-          {/* <Icons.user className="h-4 w-4" /> */}
+          <Icon path={mdiAccount} />
         </AvatarFallback>
       )}
     </Avatar>

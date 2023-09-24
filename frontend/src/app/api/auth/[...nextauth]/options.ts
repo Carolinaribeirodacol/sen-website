@@ -44,12 +44,13 @@ export const options: NextAuthOptions = {
 
           const userWithImage = {
             ...user,
-            image: getStrapiURL(meData.image.formats.thumbnail.url)
+            image: meData.image ? getStrapiURL(meData.image.formats.thumbnail.url) : null
           }
 
           return { ...userWithImage, jwt };
         } catch (error) {
           // Sign In Fail
+          console.log(error)
           return null;
         }
       },

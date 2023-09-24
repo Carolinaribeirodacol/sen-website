@@ -38,15 +38,6 @@ const editAccount = () => {
 export const Navbar = ({ items }: Props) => {
   const { data: session } = useSession()
 
-  // const btn = document.getElementById("menuButton")
-  // const menu = document.getElementById("menu")
-
-  // btn?.addEventListener("click", () => {
-  //   // alert("Abrir menu")
-  //   // Remove a classe hidden do meu elemento com id "menu".
-  //   menu?.classList.toggle("hidden")
-  // })
-
   return (
     <nav className="bg-white border-b-4 border-b-purple-900 top-0 left-0 right-0">
       <div className="max-w-7x1 mx-auto py-4 px-4 sm:px-6 lg:px-8">
@@ -67,32 +58,10 @@ export const Navbar = ({ items }: Props) => {
           <div className="hidden md:block">
             <div className="flex flex-row gap-8">
               <SearchBar />
+              {/* {session?.user?.name} */}
               {session?.user ? (
                 <>
                   <UserAccountNav user={session.user} />
-                  {/* <Dropdown title={session.user.name}>
-                    <div className="flex w-full justify-between hover:bg-purple-900 cursor-pointer rounded-r-lg 
-                      border-l-transparent hover:border-l-white border-l-4 p-4">
-                      <button
-                        className="text-white bg-transparent flex flex-row space-x-2"
-                        onClick={() => editAccount()}
-                      >
-                        <Icon path={mdiAccountEdit} size={1} />
-                        <span>Editar conta</span>
-                      </button>
-                    </div>
-
-                    <div className="flex w-full justify-between hover:bg-purple-900 cursor-pointer rounded-r-lg 
-                            border-l-transparent hover:border-l-white border-l-4 p-4">
-                      <button
-                        className="text-white bg-transparent flex flex-row space-x-2"
-                        onClick={() => signOut()}
-                      >
-                        <Icon path={mdiExitToApp} size={1} />
-                        <span>Sair</span>
-                      </button>
-                    </div>
-                  </Dropdown> */}
                 </>
               ) : (
                 <Link href="/signin">

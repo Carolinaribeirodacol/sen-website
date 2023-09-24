@@ -13,12 +13,15 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { UserAvatar } from "@/components/UserAvatar"
 import { DefaultJWT } from 'next-auth/jwt'
+import Icon from '@mdi/react';
+import { mdiAccount } from "@mdi/js"
 
 interface UserAccountNavProps extends React.HTMLAttributes<HTMLDivElement> {
   user: Pick<DefaultJWT, "name" | "picture" | "email">
 }
 
 export function UserAccountNav({ user }: UserAccountNavProps) {
+  console.log(user);
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
@@ -39,26 +42,18 @@ export function UserAccountNav({ user }: UserAccountNavProps) {
           </div>
         </div>
         <DropdownMenuSeparator />
-        <DropdownMenuItem asChild>
-          <Link href="/dashboard">Dashboard</Link>
-        </DropdownMenuItem>
-        <DropdownMenuItem asChild>
-          <Link href="/dashboard/billing">Billing</Link>
-        </DropdownMenuItem>
-        <DropdownMenuItem asChild>
-          <Link href="/dashboard/settings">Settings</Link>
+        <DropdownMenuItem
+          asChild
+          className="cursor-pointer"
+        >
+          <Link href="/edit-account">Editar perfil</Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem
           className="cursor-pointer"
-          onSelect={(event) => {
-            event.preventDefault()
-            signOut({
-              callbackUrl: `${window.location.origin}/login`,
-            })
-          }}
+          onSelect={() => signOut()}
         >
-          Sign out
+          Sair
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
