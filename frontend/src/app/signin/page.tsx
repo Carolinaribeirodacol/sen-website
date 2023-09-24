@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from "react"
+import React, { ReactEventHandler, useState } from "react"
 import { useSearchParams } from 'next/navigation'
 import { signIn } from "next-auth/react"
 import { Button } from "@/components/Button"
@@ -8,9 +8,11 @@ import { TextField } from "@/components/TextField"
 import { Form } from "@/components/Form"
 
 export default function SignIn() {
+    const [isLoading, setIsLoading] = React.useState<boolean>(false)
+
     const [form, setForm] = useState({
-        email: '',
-        password: '',
+        email: 'bandradelucas@gmail.com',
+        password: 'rukado',
     });
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,12 +25,16 @@ export default function SignIn() {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
 
-        await signIn("credentials", {
+        setIsLoading(true)
+
+        const signInResult = await signIn("credentials", {
             email: form.email,
             password: form.password,
             redirect: true,
             callbackUrl: "/",
         });
+
+        setIsLoading(false)
     }
 
     const searchParams = useSearchParams();
@@ -72,7 +78,12 @@ export default function SignIn() {
                             </a>
                         </div>
 
-                        <Button type="submit" typeButton="common" textButton="Entrar" />
+                        <Button
+                            type="submit"
+                            typeButton="common"
+                            textButton="Entrar"
+                            disabled={isLoading}
+                        />
                         {/* <button
                                 onClick={() => handleSignIn("google")}
                                 type="button"

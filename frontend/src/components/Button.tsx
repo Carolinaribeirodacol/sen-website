@@ -1,13 +1,15 @@
 import React from 'react';
+import { Icon } from './Icon';
 
 type Props = {
   typeButton: string;
   type?: "button" | "submit" | "reset" | undefined;
   textButton?: string;
   onClick?: (event: any) => void;
+  disabled?: boolean;
 };
 
-export const Button = ({ typeButton, type, textButton, onClick }: Props) => {
+export const Button = ({ typeButton, type, textButton, onClick, ...props }: Props) => {
   return (
     <div className="flex flex-wrap content-center justify-center">
       {typeButton === 'google' ? (
@@ -35,8 +37,12 @@ export const Button = ({ typeButton, type, textButton, onClick }: Props) => {
         <button
           onClick={onClick}
           type={type}
-          className="text-white bg-purple-900 hover:bg-purple-950 focus:ring-2 font-medium rounded-lg text-sm px-8 py-2.5 transition duration-150 easy-in-out"
+          className="inline-flex text-white bg-purple-900 hover:bg-purple-950 focus:ring-2 font-medium rounded-lg text-sm px-8 py-2.5 transition duration-150 easy-in-out disabled:bg-purple-900/60"
+          {...props}
         >
+          {props.disabled &&
+            <Icon name="mdiRefresh" className="mr-2 h-4 w-4 animate-spin" />
+          }
           {textButton}
         </button>
       )}

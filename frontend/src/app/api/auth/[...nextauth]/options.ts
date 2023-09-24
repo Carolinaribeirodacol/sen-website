@@ -2,6 +2,7 @@ import type { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { signIn } from "./auth";
+import { getStrapiURL } from '@/helpers/api';
 
 export const options: NextAuthOptions = {
   providers: [
@@ -32,7 +33,21 @@ export const options: NextAuthOptions = {
             password: credentials.password,
           });
 
-          return { ...user, jwt };
+          const me = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/me?populate=image`, {
+            headers: {
+              Authorization: `Bearer ${jwt}`,
+              'Content-Type': 'application/json',
+            }
+          });
+
+          const meData = await me.json();
+
+          const userWithImage = {
+            ...user,
+            image: getStrapiURL(meData.image.formats.thumbnail.url)
+          }
+
+          return { ...userWithImage, jwt };
         } catch (error) {
           // Sign In Fail
           return null;
@@ -54,7 +69,7 @@ export const options: NextAuthOptions = {
   callbacks: {
     async session({ session, token }) {
       session.user = token as any;
-      
+
       return Promise.resolve(session);
     },
 

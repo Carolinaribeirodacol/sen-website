@@ -8,6 +8,7 @@ import { Image } from "./Image";
 import { Dropdown } from "./Dropdown";
 import Icon from "@mdi/react";
 import { mdiAccountEdit, mdiExitToApp } from "@mdi/js";
+import { UserAccountNav } from './UserAccountNav';
 
 type Props = {
   items: {
@@ -37,14 +38,14 @@ const editAccount = () => {
 export const Navbar = ({ items }: Props) => {
   const { data: session } = useSession()
 
-  const btn = document.getElementById("menuButton")
-  const menu = document.getElementById("menu")
+  // const btn = document.getElementById("menuButton")
+  // const menu = document.getElementById("menu")
 
-  btn?.addEventListener("click", () => {
-    // alert("Abrir menu")
-    // Remove a classe hidden do meu elemento com id "menu".
-    menu?.classList.toggle("hidden")
-  })
+  // btn?.addEventListener("click", () => {
+  //   // alert("Abrir menu")
+  //   // Remove a classe hidden do meu elemento com id "menu".
+  //   menu?.classList.toggle("hidden")
+  // })
 
   return (
     <nav className="bg-white border-b-4 border-b-purple-900 top-0 left-0 right-0">
@@ -68,7 +69,8 @@ export const Navbar = ({ items }: Props) => {
               <SearchBar />
               {session?.user ? (
                 <>
-                  <Dropdown title={session.user.name}>
+                  <UserAccountNav user={session.user} />
+                  {/* <Dropdown title={session.user.name}>
                     <div className="flex w-full justify-between hover:bg-purple-900 cursor-pointer rounded-r-lg 
                       border-l-transparent hover:border-l-white border-l-4 p-4">
                       <button
@@ -90,7 +92,7 @@ export const Navbar = ({ items }: Props) => {
                         <span>Sair</span>
                       </button>
                     </div>
-                  </Dropdown>
+                  </Dropdown> */}
                 </>
               ) : (
                 <Link href="/signin">
