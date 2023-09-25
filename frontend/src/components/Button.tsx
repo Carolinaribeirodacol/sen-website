@@ -2,7 +2,7 @@ import React from 'react';
 import { Icon } from './Icon';
 
 type Props = {
-  typeButton: string;
+  typeButton?: string;
   type?: "button" | "submit" | "reset" | undefined;
   textButton?: string;
   onClick?: (event: any) => void;

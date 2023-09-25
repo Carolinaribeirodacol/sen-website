@@ -7,6 +7,8 @@ import { SearchBar } from "./SearchBar";
 import { Image } from "./Image";
 import { UserAccountNav } from './UserAccountNav';
 import { useState } from "react";
+import { Icon } from "./Icon";
+import { MobileNavbar } from "./MobileNavbar";
 
 type Props = {
   items: {
@@ -31,11 +33,7 @@ type Props = {
 
 export const Navbar = ({ items }: Props) => {
   const { data: session } = useSession()
-  const [showMenu, setShowMenu] = useState(false)
-
-  const handleActiveMenu = () => {
-    setShowMenu(true)
-  };
+  const [showMobileMenu, setShowMobileMenu] = useState(false)
 
   return (
     <nav className="bg-white border-b-4 border-b-purple-900 top-0 left-0 right-0">
@@ -69,8 +67,20 @@ export const Navbar = ({ items }: Props) => {
             </div>
           </div>
 
-          <div className="-mr-2 flex md:hidden">
-            <button onClick={() => handleActiveMenu} type="button"
+          <button
+            className="flex items-center space-x-2 md:hidden"
+            onClick={() => setShowMobileMenu(!showMobileMenu)}
+          >
+            {/* {showMobileMenu ? <Icon name="mdiClose" /> : <Icon name="mdiHeart" />} */}
+            <Icon name="mdiMenu" className="text-purple-900" />
+          </button>
+
+          {showMobileMenu && items && (
+            <MobileNavbar></MobileNavbar>
+          )}
+
+          {/* <div className="-mr-2 flex md:hidden">
+            <button onClick={() => setShowMenu(true)} type="button"
               className="text-purple-900 inline-flex items-center justify-center p-2 hover:bg-gray-100
                 rounded-md hover:text-purple-950 focus:outline-none focus:bg-gray-100 transition duration-150 easy-in-out"
               aria-label="Menu"
@@ -80,14 +90,13 @@ export const Navbar = ({ items }: Props) => {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16"></path>
               </svg>
             </button>
-          </div>
+          </div> */}
         </div>
       </div >
 
-      {showMenu ?? (
+      {/* {showMenu ?? (
         <div id="menu" className="hidden md:hidden bg-purple-900 text-white">
           <div className="px-2 pt-2 pd-3 sm:px-3">
-            <SearchBar />
             {session?.user ? (
               <>
                 <UserAccountNav user={session.user} />
@@ -99,7 +108,7 @@ export const Navbar = ({ items }: Props) => {
             )}
           </div>
         </div>
-      )}
+      )} */}
     </nav >
 
   );
