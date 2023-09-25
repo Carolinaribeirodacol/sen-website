@@ -1,12 +1,17 @@
 import './globals.css'
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Inter, Poppins } from 'next/font/google'
 import NextAuthProvider from '@/providers/NextAuthProvider'
 import { Navbar } from '@/components/Navbar'
 import { getStrapiAPIURL } from '@/helpers/api'
 import { Navigation } from '@/components/Navigation'
 
-const inter = Inter({ subsets: ['latin'] })
+// const inter = Inter({ subsets: ['latin'] })
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: '400',
+  display: 'auto'
+})
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -37,7 +42,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={poppins.className}>
         <NextAuthProvider>
           <Navbar items={navbar} />
           {children}
