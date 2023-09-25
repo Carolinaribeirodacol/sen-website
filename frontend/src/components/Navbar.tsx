@@ -28,10 +28,6 @@ type Props = {
   }
 }
 
-const editAccount = () => {
-
-}
-
 export const Navbar = ({ items }: Props) => {
   const { data: session } = useSession()
 

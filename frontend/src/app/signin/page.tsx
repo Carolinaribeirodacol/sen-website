@@ -40,7 +40,7 @@ export default function SignIn() {
     }
 
     const searchParams = useSearchParams();
-    const callbackUrl = searchParams.get("callbackUrl") || "/";
+    searchParams.get("callbackUrl") || "/";
 
     // const handleSignIn = (provider: string) => {
     //     signIn(provider, { callbackUrl });

@@ -6,8 +6,10 @@ import { Form } from "./Form"
 import { TextArea } from "./TextArea"
 import { getStrapiAPIURL } from "@/helpers/api"
 import { useSession } from "next-auth/react"
+import { useRouter } from "next/navigation"
 
 export const Comment = ({ postId }: any) => {
+    const router = useRouter();
     const { data: session } = useSession()
 
     const [form, setForm] = useState({
@@ -44,7 +46,9 @@ export const Comment = ({ postId }: any) => {
                 },
             );
 
-            console.log(response)
+            router.refresh();
+
+            return response
         } catch (error) {
             console.log(error);
             throw new Error('Fail');
