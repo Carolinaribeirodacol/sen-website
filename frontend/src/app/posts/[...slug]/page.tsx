@@ -31,12 +31,13 @@ export default async function Page({ params: { slug } }: Props) {
     const { data: post } = await getPostData(slug);
 
     return (
-        <main className="flex justify-center items-center min-h-screen bg-slate-200 p-10">
-            <div className="text-gray-800 bg-white rounded-lg p-10">
-                <div>
-                    <h1 className="py-6 text-center text-4xl text-purple-900 font-bold">{post.attributes.title}</h1>
+        <main className="min-h-screen bg-slate-200 p-10">
+            <div className="container text-gray-800 bg-white rounded-lg p-10">
+                <h1 className="py-6 text-center text-4xl text-purple-900 font-bold">{post.attributes.title}</h1>
+                <article className="prose-xl prose-a:text-red-500">
                     <Markdown className="break-all">{post.attributes.content}</Markdown>
-                </div>
+                </article>
+
                 <div className="mt-14">
                     <Comment postId={post.id} />
                     {post.attributes.comments.data.map((comment: any) => {
