@@ -47,7 +47,7 @@ export const Navbar = ({ items }: Props) => {
                 className="flex-shrink-0 w-14 h-14 mr-4"
               />
             </Link>
-            <span className="text-violet-900 font-medium text-lg">
+            <span className="text-purple-900 font-medium text-lg">
               Sēn
             </span>
           </div>
@@ -68,47 +68,17 @@ export const Navbar = ({ items }: Props) => {
           </div>
 
           <button
-            className="flex items-center space-x-2 md:hidden"
+            className="flex items-center md:hidden hover:bg-gray-100 focus:bg-gray-100 p-2 rounded-md"
             onClick={() => setShowMobileMenu(!showMobileMenu)}
           >
-            {/* {showMobileMenu ? <Icon name="mdiClose" /> : <Icon name="mdiHeart" />} */}
             <Icon name="mdiMenu" className="text-purple-900" />
           </button>
 
-          {showMobileMenu && items && (
+          {showMobileMenu === true && (
             <MobileNavbar></MobileNavbar>
           )}
-
-          {/* <div className="-mr-2 flex md:hidden">
-            <button onClick={() => setShowMenu(true)} type="button"
-              className="text-purple-900 inline-flex items-center justify-center p-2 hover:bg-gray-100
-                rounded-md hover:text-purple-950 focus:outline-none focus:bg-gray-100 transition duration-150 easy-in-out"
-              aria-label="Menu"
-              aria-expanded="false"
-            >
-              <svg className="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16"></path>
-              </svg>
-            </button>
-          </div> */}
         </div>
       </div >
-
-      {/* {showMenu ?? (
-        <div id="menu" className="hidden md:hidden bg-purple-900 text-white">
-          <div className="px-2 pt-2 pd-3 sm:px-3">
-            {session?.user ? (
-              <>
-                <UserAccountNav user={session.user} />
-              </>
-            ) : (
-              <Link href="/signin">
-                <Button typeButton="common" textButton="Entrar" />
-              </Link>
-            )}
-          </div>
-        </div>
-      )} */}
     </nav >
 
   );

@@ -52,9 +52,9 @@ export default function SignUp() {
     };
 
     return (
-        <main className="flex justify-center items-center min-h-screen bg-slate-300 p-10">
-            <div className="flex flex-col items-center justify-center px-8 py-8 bg-white rounded-lg w-1/2">
-                <div className="space-y-4 md:space-y-4 sm:p-4 w-full">
+        <main className="flex justify-center items-center min-h-screen bg-slate-200">
+            <div className="flex flex-col items-center justify-center px-8 py-8 bg-white rounded-lg">
+                <div className="w-96 space-y-4 md:space-y-4 sm:p-4">
                     <h1
                         className="text-xl font-bold leading-tight tracking-tight text-purple-900 text-center"
                     >

@@ -1,7 +1,11 @@
 import { Comment } from "@/components/Comment";
-import { Image } from "@/components/Image";
+import { Icon } from "@/components/Icon";
 import { Markdown } from "@/components/Markdown";
+import { UserAvatar } from "@/components/UserAvatar";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { getStrapiAPIURL } from "@/helpers/api";
+import { getCurrentUser } from "@/lib/session";
+import { AvatarFallback } from "@radix-ui/react-avatar";
 
 type Props = {
     params: {
@@ -22,24 +26,12 @@ async function getPostData(slug: string) {
     }
 }
 
-async function getComments(postId: number) {
-    try {
-        const response = await fetch(
-            getStrapiAPIURL(`posts?postId=${postId}&populate=*`),
-            { cache: 'no-store' }
-        );
-
-        return response.json();
-    } catch (error) {
-        throw new Error('Fail');
-    }
-}
-
 export default async function Page({ params: { slug } }: Props) {
+    const user = await getCurrentUser()
     const { data: post } = await getPostData(slug);
 
     return (
-        <main className="flex justify-center items-center min-h-screen bg-slate-300 p-10">
+        <main className="flex justify-center items-center min-h-screen bg-slate-200 p-10">
             <div className="text-gray-800 bg-white rounded-lg p-10">
                 <div>
                     <h1 className="py-6 text-center text-4xl text-purple-900 font-bold">{post.attributes.title}</h1>
@@ -49,15 +41,14 @@ export default async function Page({ params: { slug } }: Props) {
                     <Comment postId={post.id} />
                     {post.attributes.comments.data.map((comment: any) => {
                         return (
-                            <div key={comment.attributes.id} className="p-6 bg-gray-200 rounded-xl flex flex-row mt-6">
-                                {comment.attributes && comment.attributes.image && comment.attributes.image.data ? (
-                                    <Image
-                                        image={comment.attributes.image}
-                                        alt="Picture of the author"
-                                        className="mr-4 w-20 h-20"
-                                    />
+                            <div key={comment.attributes.id} className="p-6 bg-gray-200 rounded-xl flex flex-row mt-6 space-x-4">
+                                {user ? (
+                                    <UserAvatar user={user} />
                                 ) : (
-                                    <div className="w-6 h-6 bg-purple-900"></div>
+                                    <Avatar>
+                                        <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+                                    </Avatar>
+
                                 )}
                                 <span>
                                     <h2 className="text-md w-fit font-bold">{comment.attributes.author}</h2>

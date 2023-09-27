@@ -48,7 +48,7 @@ export default async function Post() {
   const { data: posts }: any = await getPostData();
 
   return (
-    <main className="flex min-h-screen bg-slate-300 p-10">
+    <main className="flex min-h-screen bg-slate-200 p-10">
       <div className="grid grid-cols-4 gap-8 h-full">
         {posts.map((post: any) => {
           return (
