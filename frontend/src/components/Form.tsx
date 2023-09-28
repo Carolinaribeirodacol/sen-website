@@ -4,7 +4,7 @@ type Props = {
     title?: string;
     action?: string;
     children: ReactNode;
-    onSubmit?: () => void;
+    onSubmit?: (param?: any, param2?: any) => void;
 }
 
 export const Form = ({ title, onSubmit, action = "#", children }: Props) => {

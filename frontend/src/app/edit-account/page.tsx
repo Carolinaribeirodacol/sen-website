@@ -5,6 +5,7 @@ import { Button } from '@/components/Button';
 import { getStrapiAPIURL } from '@/helpers/api';
 import { Form } from '@/components/Form';
 import { TextField } from '@/components/TextField';
+import InputFile from '@/components/InputFile';
 
 export default function EditAccount() {
     const { data: session } = useSession()
@@ -15,7 +16,7 @@ export default function EditAccount() {
         username: '',
         email: '',
         password: '',
-        image: ''
+        avatar: ''
     });
 
     const handleChange = (e: any) => {
@@ -30,7 +31,7 @@ export default function EditAccount() {
 
         setIsLoading(true)
 
-        const { name, username, email, password } = form;
+        const { name, username, email, password, avatar } = form;
 
         const response = await fetch(getStrapiAPIURL(`users/${session?.user?.id}`), {
             method: 'PUT',
@@ -44,8 +45,12 @@ export default function EditAccount() {
                 username,
                 email,
                 password,
-                // image
+                avatar
             }),
+        }).catch(function (error) {
+            console.log(
+                "There has been a problem with your fetch operation: " + error.message
+            );
         });
 
         if (!response.ok) {
@@ -55,8 +60,6 @@ export default function EditAccount() {
 
         const data = await response.json();
 
-        console.log(data, response)
-
         setIsLoading(false)
 
         return data;
@@ -64,8 +67,8 @@ export default function EditAccount() {
     };
 
     return (
-        <main className="flex justify-center items-center min-h-screen bg-slate-200 p-10">
-            <div className="flex flex-col items-center justify-center px-8 py-8 bg-white rounded-lg w-1/2">
+        <main className="min-h-screen bg-slate-200 p-10">
+            <div className="container text-gray-800 bg-white rounded-lg p-10">
                 <div className="space-y-4 md:space-y-4 sm:p-4 w-full">
                     <h1
                         className="text-xl font-bold leading-tight tracking-tight text-purple-900 text-center"
@@ -73,6 +76,7 @@ export default function EditAccount() {
                         Editar cadastro
                     </h1>
                     <Form onSubmit={handleSubmit} action="#">
+                        <InputFile name="avatar" />
                         <TextField text="Username" typeInput="text" nameInput="username" onChange={handleChange} placeholder="Maria" />
                         <TextField text="Nome e sobrenome" typeInput="text" nameInput="name" onChange={handleChange} placeholder="Maria" />
                         <TextField text="Email" typeInput="email" nameInput="email" onChange={handleChange} placeholder="name@gmail.com" />

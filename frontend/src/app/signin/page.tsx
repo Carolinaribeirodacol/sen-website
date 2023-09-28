@@ -6,9 +6,11 @@ import { signIn } from "next-auth/react"
 import { Button } from "@/components/Button"
 import { TextField } from "@/components/TextField"
 import { Form } from "@/components/Form"
+import { useToast } from "@/components/ui/use-toast"
 
 export default function SignIn() {
     const [isLoading, setIsLoading] = React.useState<boolean>(false)
+    const { toast } = useToast()
 
     const [form, setForm] = useState({
         email: '',
@@ -23,43 +25,51 @@ export default function SignIn() {
     };
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+
         event.preventDefault()
 
         setIsLoading(true)
 
-        const signInResult = await signIn("credentials", {
+        const response = await signIn("credentials", {
             email: form.email,
             password: form.password,
             redirect: true,
-            callbackUrl: "/",
+            callbackUrl: "/"
         });
 
-        console.log(signInResult);
+        if (!response?.ok) {
+            setIsLoading(false)
+
+            return toast({
+                title: "Algo deu errado",
+                description: "Email ou senha inválidos",
+                variant: "destructive",
+            })
+        }
 
         setIsLoading(false)
     }
 
-    const searchParams = useSearchParams();
-    searchParams.get("callbackUrl") || "/";
+    // const searchParams = useSearchParams();
+    // searchParams.get("callbackUrl") || "/";
 
     // const handleSignIn = (provider: string) => {
     //     signIn(provider, { callbackUrl });
     // };
 
     return (
-        <main className="flex justify-center items-center min-h-screen bg-slate-200">
-            <div className="flex flex-col items-center justify-center px-8 py-8 bg-white rounded-lg">
-                <div className="w-96 space-y-4 md:space-y-4 sm:p-4 w-full">
-                    <h1
-                        className="text-xl font-bold leading-tight tracking-tight text-purple-900 text-center"
-                    >
-                        Entre ou cadastre-se
-                    </h1>
-                    <Form onSubmit={handleSubmit} action="#">
-                        <TextField text="Email" typeInput="email" nameInput="email" onChange={handleChange} placeholder="name@gmail.com" />
-                        <TextField text="Senha" typeInput="password" nameInput="password" onChange={handleChange} placeholder="••••••••" />
-                        <div className="flex items-center justify-between">
-                            {/* <div className="flex items-start">
+        <main className="min-h-screen bg-slate-200 p-10">
+            <div className="container text-gray-800 bg-white rounded-lg p-10">
+                <h1
+                    className="text-xl font-bold leading-tight tracking-tight text-purple-900 text-center"
+                >
+                    Entre ou cadastre-se
+                </h1>
+                <Form onSubmit={handleSubmit} action="#">
+                    <TextField text="Email" typeInput="email" nameInput="email" onChange={handleChange} placeholder="name@gmail.com" />
+                    <TextField text="Senha" typeInput="password" nameInput="password" onChange={handleChange} placeholder="••••••••" />
+                    <div className="flex items-center justify-between">
+                        {/* <div className="flex items-start">
                                 <div className="flex items-center h-5">
                                     <input
                                         id="remember"
@@ -72,21 +82,21 @@ export default function SignIn() {
                                     <label className="text-gray-800">Lembrar</label>
                                 </div>
                             </div> */}
-                            <a
-                                href="/reset-password"
-                                className="text-sm font-medium text-primary-600 hover:underline text-blue-400"
-                            >
-                                Esqueceu a senha?
-                            </a>
-                        </div>
+                        <a
+                            href="/reset-password"
+                            className="text-sm font-medium text-primary-600 hover:underline text-blue-400"
+                        >
+                            Esqueceu a senha?
+                        </a>
+                    </div>
 
-                        <Button
-                            type="submit"
-                            typeButton="common"
-                            textButton="Entrar"
-                            disabled={isLoading}
-                        />
-                        {/* <button
+                    <Button
+                        type="submit"
+                        typeButton="common"
+                        textButton="Entrar"
+                        disabled={isLoading}
+                    />
+                    {/* <button
                                 onClick={() => handleSignIn("google")}
                                 type="button"
                                 className="text-white bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 m-0 p-0"
@@ -97,14 +107,13 @@ export default function SignIn() {
                                 Entrar com Google
                             </button> */}
 
-                        <p className="text-sm font-light text-gray-800">
-                            Ainda não possui cadastro?
-                            <a href="/signup" className="font-medium text-blue-400 hover:underline pl-2">
-                                Cadastrar
-                            </a>
-                        </p>
-                    </Form>
-                </div>
+                    <p className="text-sm font-light text-gray-800">
+                        Ainda não possui cadastro?
+                        <a href="/signup" className="font-medium text-blue-400 hover:underline pl-2">
+                            Cadastrar
+                        </a>
+                    </p>
+                </Form>
             </div>
         </main>
     )

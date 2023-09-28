@@ -3,7 +3,7 @@ type Props = {
     typeInput: string;
     nameInput: string;
     placeholder?: string;
-    onChange?: () => void;
+    onChange?: (param?: any, param2?: any) => void;
 }
 
 export const TextField = ({ text, onChange, typeInput, nameInput, placeholder }: Props) => {
