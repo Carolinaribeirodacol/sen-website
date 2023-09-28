@@ -16,7 +16,7 @@ export default function EditAccount() {
         username: '',
         email: '',
         password: '',
-        avatar: ''
+        image: ''
     });
 
     const handleChange = (e: any) => {
@@ -31,26 +31,22 @@ export default function EditAccount() {
 
         setIsLoading(true)
 
-        const { name, username, email, password, avatar } = form;
+        const { name, username, email, password, image } = form;
 
+        // @ts-ignore
         const response = await fetch(getStrapiAPIURL(`users/${session?.user?.id}`), {
             method: 'PUT',
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                // Authorization: `Bearer ${}`,
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify({
                 name,
                 username,
                 email,
                 password,
-                avatar
+                image
             }),
-        }).catch(function (error) {
-            console.log(
-                "There has been a problem with your fetch operation: " + error.message
-            );
         });
 
         if (!response.ok) {
@@ -76,7 +72,7 @@ export default function EditAccount() {
                         Editar cadastro
                     </h1>
                     <Form onSubmit={handleSubmit} action="#">
-                        <InputFile name="avatar" />
+                        <InputFile name="image" />
                         <TextField text="Username" typeInput="text" nameInput="username" onChange={handleChange} placeholder="Maria" />
                         <TextField text="Nome e sobrenome" typeInput="text" nameInput="name" onChange={handleChange} placeholder="Maria" />
                         <TextField text="Email" typeInput="email" nameInput="email" onChange={handleChange} placeholder="name@gmail.com" />

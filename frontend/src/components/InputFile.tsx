@@ -4,7 +4,7 @@ import { Label } from "@/components/ui/label"
 export default function InputFile(name: any) {
     return (
         <div className="grid w-full lg:max-w-sm items-center gap-1.5">
-            <Label htmlFor="avatar">Avatar</Label>
+            <Label htmlFor="image">Avatar</Label>
             <Input
                 id={name}
                 name={name}

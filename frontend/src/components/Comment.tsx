@@ -16,7 +16,7 @@ export const Comment = ({ postId }: any) => {
         comment: ''
     });
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
         setForm({
             ...form,
             [event.target.name]: event.target.value

@@ -1,7 +1,6 @@
 "use client"
 
 import Link from "next/link"
-import { User } from "next-auth"
 import { signOut } from "next-auth/react"
 
 import {
@@ -22,40 +21,42 @@ interface UserAccountNavProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export function UserAccountNav({ user }: UserAccountNavProps) {
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger>
-        <UserAvatar
-          user={{ name: user.name || null, image: user.picture || null }}
-          className="h-8 w-8"
-        />
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <div className="flex items-center justify-start gap-2 p-2">
-          <div className="flex flex-col space-y-1 leading-none">
-            {user.name && <p className="font-medium">{user.name}</p>}
-            {user.email && (
-              <p className="w-[200px] truncate text-sm text-muted-foreground">
-                {user.email}
-              </p>
-            )}
+    <>
+      <DropdownMenu>
+        <DropdownMenuTrigger>
+          <UserAvatar
+            user={{ name: user.name || null, image: user.picture || null }}
+            className="h-8 w-8"
+          />
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end">
+          <div className="flex items-center justify-start gap-2 p-2">
+            <div className="flex flex-col space-y-1 leading-none">
+              {user.name && <p className="font-medium">{user.name}</p>}
+              {user.email && (
+                <p className="w-[200px] truncate text-sm text-muted-foreground">
+                  {user.email}
+                </p>
+              )}
+            </div>
           </div>
-        </div>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem
-          asChild
-          className="cursor-pointer"
-        >
-          <Link href="/edit-account">Editar cadastro</Link>
-        </DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem
-          className="cursor-pointer"
-          onSelect={() => signOut()}
-        >
-          <span className="mr-2">Sair</span>
-          <Icon size={1} path={mdiExitToApp} />
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem
+            asChild
+            className="cursor-pointer"
+          >
+            <Link href="/edit-account">Editar cadastro</Link>
+          </DropdownMenuItem>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem
+            className="cursor-pointer"
+            onSelect={() => signOut()}
+          >
+            <span className="mr-2">Sair</span>
+            <Icon size={1} path={mdiExitToApp} />
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </>
   )
 }

@@ -8,6 +8,7 @@ type Props = {
 
 export const Markdown = ({ children, className }: Props) => {
   return (
+    // @ts-ignore
     <ReactMarkdown rehypePlugins={[rehypeRaw]} className={className}>
       {children}
     </ReactMarkdown>

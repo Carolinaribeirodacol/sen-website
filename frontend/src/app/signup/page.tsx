@@ -11,14 +11,13 @@ import { toast } from '@/components/ui/use-toast';
 
 export default function SignUp() {
     const [isLoading, setIsLoading] = React.useState<boolean>(false)
-    const router = useRouter();
 
     const [form, setForm] = useState({
         name: '',
         username: '',
         email: '',
         password: '',
-        avatar: '',
+        image: '',
     });
 
     const handleChange = (e: any) => {
@@ -30,7 +29,7 @@ export default function SignUp() {
 
         e.preventDefault();
 
-        const { name, username, email, password, avatar } = form;
+        const { name, username, email, password, image } = form;
         const response = await fetch(getStrapiAPIURL('auth/local/register'), {
             method: 'POST',
             headers: {
@@ -42,7 +41,7 @@ export default function SignUp() {
                 username,
                 email,
                 password,
-                avatar
+                image
             }),
         });
 
@@ -80,7 +79,7 @@ export default function SignUp() {
                     Cadastro
                 </h1>
                 <Form onSubmit={handleSubmit} action="#">
-                    <InputFile name="avatar" />
+                    <InputFile name="image" />
                     <TextField text="Username" typeInput="text" nameInput="username" onChange={handleChange} placeholder="Maria" />
                     <TextField text="Nome e sobrenome" typeInput="text" nameInput="name" onChange={handleChange} placeholder="Maria" />
                     <TextField text="Email" typeInput="email" nameInput="email" onChange={handleChange} placeholder="name@gmail.com" />

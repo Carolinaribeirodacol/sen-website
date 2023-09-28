@@ -2,7 +2,7 @@ type Props = {
     text: string;
     placeholder?: string;
     nameInput?: string;
-    onChange?: () => void;
+    onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const TextArea = ({ text, placeholder, nameInput, onChange }: Props) => {
@@ -16,7 +16,7 @@ export const TextArea = ({ text, placeholder, nameInput, onChange }: Props) => {
             <textarea
                 rows={6}
                 name={nameInput}
-                onChange={onChange}
+                onChange={() => onChange}
                 className="
                     bg-gray-400/40 
                     text-gray-900 
