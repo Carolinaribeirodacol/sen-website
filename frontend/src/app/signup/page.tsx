@@ -1,16 +1,16 @@
 "use client"
+import InputFile from '@/components/InputFile';
 import React, { useState } from 'react';
-import { useRouter } from "next/navigation";
 import { Button } from '@/components/Button';
 import { getStrapiAPIURL } from '@/helpers/api';
 import { Form } from '@/components/Form';
 import { TextField } from '@/components/TextField';
-import InputFile from '@/components/InputFile';
 import { signIn } from 'next-auth/react';
 import { toast } from '@/components/ui/use-toast';
 
 export default function SignUp() {
     const [isLoading, setIsLoading] = React.useState<boolean>(false)
+    const [selectedImage, setSelectedImage] = useState(null);
 
     const [form, setForm] = useState({
         name: '',
@@ -20,55 +20,60 @@ export default function SignUp() {
         image: '',
     });
 
-    const handleChange = (e: any) => {
-        setForm({ ...form, [e.target.name]: e.target.value });
+    const handleChange = (event: any) => {
+        setForm({ ...form, [event.target.name]: event.target.value });
     };
+
+    const handleFileChange = (event: any) => {
+        console.log(event.target.files[0])
+        setSelectedImage(event.target.files[0]);
+        setForm({ ...form, image: event.target.files[0] });
+    }
 
     const handleSubmit = async (e: any) => {
-        setIsLoading(true)
-
+        setIsLoading(true);
         e.preventDefault();
 
-        const { name, username, email, password, image } = form;
-        const response = await fetch(getStrapiAPIURL('auth/local/register'), {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                name,
-                username,
-                email,
-                password,
-                image
-            }),
-        });
+        const { name, username, email, password } = form;
 
-        if (!response.ok) {
-            const errorResponse = await response.json();
-            setIsLoading(false)
+        try {
+            const response = await fetch(getStrapiAPIURL('auth/local/register'), {
+                method: 'POST',
+                body: JSON.stringify({
+                    name,
+                    username,
+                    email,
+                    password
+                }),
+            });
 
-            return toast({
-                title: "Algo deu errado",
-                description: errorResponse.error.message,
-                variant: "destructive",
-            })
-        } else {
-            await signIn("credentials", {
-                email,
-                password,
-                redirect: true,
-                callbackUrl: "/",
-            })
+            if (!response.ok) {
+                const errorResponse = await response.json();
+                setIsLoading(false);
+
+                return toast({
+                    title: "Algo deu errado",
+                    description: errorResponse.message || "Erro desconhecido",
+                    variant: "destructive",
+                });
+            } else {
+                await signIn("credentials", {
+                    email,
+                    password,
+                    redirect: true,
+                    callbackUrl: "/",
+                });
+            }
+
+            const data = await response.json();
+            setIsLoading(false);
+            return data;
+        } catch (error) {
+            console.error("Error:", error);
+            setIsLoading(false);
         }
-
-        const data = await response.json();
-
-        setIsLoading(false)
-
-        return data;
     };
+
 
     return (
         <main className="min-h-screen bg-slate-200 p-10">
@@ -79,7 +84,6 @@ export default function SignUp() {
                     Cadastro
                 </h1>
                 <Form onSubmit={handleSubmit} action="#">
-                    <InputFile name="image" />
                     <TextField text="Username" typeInput="text" nameInput="username" onChange={handleChange} placeholder="Maria" />
                     <TextField text="Nome e sobrenome" typeInput="text" nameInput="name" onChange={handleChange} placeholder="Maria" />
                     <TextField text="Email" typeInput="email" nameInput="email" onChange={handleChange} placeholder="name@gmail.com" />

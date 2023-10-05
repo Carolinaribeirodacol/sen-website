@@ -10,6 +10,7 @@ import InputFile from '@/components/InputFile';
 export default function EditAccount() {
     const { data: session } = useSession()
     const [isLoading, setIsLoading] = React.useState<boolean>(false)
+    const [selectedImage, setSelectedImage] = useState<any>(null);
 
     const [form, setForm] = useState({
         name: '',
@@ -26,12 +27,29 @@ export default function EditAccount() {
         });
     };
 
+    const handleFileChange = (event: any) => {
+        setSelectedImage(event.target.files[0]);
+        setForm({ ...form, image: event.target.files[0] });
+    }
+
     const handleSubmit = async (event: any) => {
         event.preventDefault()
 
         setIsLoading(true)
 
-        const { name, username, email, password, image } = form;
+        const formData = new FormData();
+        const { name, username, email, password } = form;
+
+        formData.append('files', selectedImage)
+
+        const responseUpload = await fetch(getStrapiAPIURL('upload'), {
+            method: 'POST',
+            body: formData,
+        });
+
+        const responseUploadData = await responseUpload.json()
+
+        const imageId = responseUploadData[0].id
 
         // @ts-ignore
         const response = await fetch(getStrapiAPIURL(`users/${session?.user?.id}`), {
@@ -45,7 +63,7 @@ export default function EditAccount() {
                 username,
                 email,
                 password,
-                image
+                image: imageId
             }),
         });
 
@@ -72,7 +90,7 @@ export default function EditAccount() {
                         Editar cadastro
                     </h1>
                     <Form onSubmit={handleSubmit} action="#">
-                        <InputFile name="image" />
+                        <InputFile name="image" onChange={handleFileChange} />
                         <TextField text="Username" typeInput="text" nameInput="username" onChange={handleChange} placeholder="Maria" />
                         <TextField text="Nome e sobrenome" typeInput="text" nameInput="name" onChange={handleChange} placeholder="Maria" />
                         <TextField text="Email" typeInput="email" nameInput="email" onChange={handleChange} placeholder="name@gmail.com" />
