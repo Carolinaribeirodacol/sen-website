@@ -1,7 +1,7 @@
 'use client'
 
-import React, { ReactEventHandler, useState } from "react"
-import { useSearchParams } from 'next/navigation'
+import React, { useState } from "react"
+import { useRouter } from 'next/navigation'
 import { signIn } from "next-auth/react"
 import { Button } from "@/components/Button"
 import { TextField } from "@/components/TextField"
@@ -9,8 +9,10 @@ import { Form } from "@/components/Form"
 import { useToast } from "@/components/ui/use-toast"
 
 export default function SignIn() {
-    const [isLoading, setIsLoading] = React.useState<boolean>(false)
+    const router = useRouter()
     const { toast } = useToast()
+
+    const [isLoading, setIsLoading] = React.useState<boolean>(false)
 
     const [form, setForm] = useState({
         email: '',
@@ -25,7 +27,6 @@ export default function SignIn() {
     };
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-
         event.preventDefault()
 
         setIsLoading(true)
@@ -33,7 +34,7 @@ export default function SignIn() {
         const response = await signIn("credentials", {
             email: form.email,
             password: form.password,
-            redirect: true,
+            redirect: false,
             callbackUrl: "/"
         });
 
@@ -48,14 +49,9 @@ export default function SignIn() {
         }
 
         setIsLoading(false)
+
+        router.push('/')
     }
-
-    // const searchParams = useSearchParams();
-    // searchParams.get("callbackUrl") || "/";
-
-    // const handleSignIn = (provider: string) => {
-    //     signIn(provider, { callbackUrl });
-    // };
 
     return (
         <main className="min-h-screen bg-slate-200 p-10">
