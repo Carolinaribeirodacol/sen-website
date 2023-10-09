@@ -6,11 +6,11 @@ import { getStrapiAPIURL } from '@/helpers/api';
 import { Form } from '@/components/Form';
 import { TextField } from '@/components/TextField';
 import { signIn } from 'next-auth/react';
-import { toast } from '@/components/ui/use-toast';
+import { toast, useToast } from '@/components/ui/use-toast';
 
 export default function SignUp() {
     const [isLoading, setIsLoading] = React.useState<boolean>(false)
-    const [selectedImage, setSelectedImage] = useState(null);
+    const { toast } = useToast()
 
     const [form, setForm] = useState({
         name: '',
@@ -23,12 +23,6 @@ export default function SignUp() {
     const handleChange = (event: any) => {
         setForm({ ...form, [event.target.name]: event.target.value });
     };
-
-    const handleFileChange = (event: any) => {
-        console.log(event.target.files[0])
-        setSelectedImage(event.target.files[0]);
-        setForm({ ...form, image: event.target.files[0] });
-    }
 
     const handleSubmit = async (e: any) => {
         setIsLoading(true);
