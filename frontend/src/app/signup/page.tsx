@@ -13,11 +13,10 @@ export default function SignUp() {
     const { toast } = useToast()
 
     const [form, setForm] = useState({
-        name: '',
         username: '',
+        name: '',
         email: '',
-        password: '',
-        image: '',
+        password: ''
     });
 
     const handleChange = (event: any) => {
@@ -28,14 +27,18 @@ export default function SignUp() {
         setIsLoading(true);
         e.preventDefault();
 
-        const { name, username, email, password } = form;
+        const { username, name, email, password } = form;
 
         try {
             const response = await fetch(getStrapiAPIURL('auth/local/register'), {
                 method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
                 body: JSON.stringify({
-                    name,
                     username,
+                    name,
                     email,
                     password
                 }),

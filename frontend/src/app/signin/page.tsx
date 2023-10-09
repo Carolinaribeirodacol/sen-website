@@ -9,10 +9,8 @@ import { Form } from "@/components/Form"
 import { useToast } from "@/components/ui/use-toast"
 
 export default function SignIn() {
-    const router = useRouter()
-    const { toast } = useToast()
-
     const [isLoading, setIsLoading] = React.useState<boolean>(false)
+    const { toast } = useToast()
 
     const [form, setForm] = useState({
         email: '',
@@ -34,11 +32,13 @@ export default function SignIn() {
         const response = await signIn("credentials", {
             email: form.email,
             password: form.password,
-            redirect: false,
+            redirect: true,
             callbackUrl: "/"
         });
 
-        if (!response?.ok) {
+        console.log(response)
+
+        if (response?.error) {
             setIsLoading(false)
 
             return toast({
@@ -48,9 +48,17 @@ export default function SignIn() {
             })
         }
 
-        setIsLoading(false)
+        if (response?.ok) {
+            setIsLoading(false)
 
-        router.push('/')
+            return toast({
+                title: "Sucesso",
+                description: "Seja bem vindo",
+                variant: "default"
+            })
+
+            // router.push('/')
+        }
     }
 
     return (
