@@ -9,6 +9,7 @@ import { Form } from "@/components/Form"
 import { useToast } from "@/components/ui/use-toast"
 
 export default function SignIn() {
+    const router = useRouter();
     const [isLoading, setIsLoading] = React.useState<boolean>(false)
     const { toast } = useToast()
 
@@ -18,6 +19,7 @@ export default function SignIn() {
     });
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        console.log(form)
         setForm({
             ...form,
             [event.target.name]: event.target.value
@@ -36,8 +38,6 @@ export default function SignIn() {
             callbackUrl: "/"
         });
 
-        console.log(response)
-
         if (response?.error) {
             setIsLoading(false)
 
@@ -50,6 +50,7 @@ export default function SignIn() {
 
         if (response?.ok) {
             setIsLoading(false)
+            router.push('/')
 
             return toast({
                 title: "Sucesso",
@@ -57,7 +58,6 @@ export default function SignIn() {
                 variant: "default"
             })
 
-            // router.push('/')
         }
     }
 
