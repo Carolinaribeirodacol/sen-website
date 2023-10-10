@@ -34,7 +34,7 @@ export default function SignIn() {
         const response = await signIn("credentials", {
             email: form.email,
             password: form.password,
-            redirect: true,
+            redirect: false,
             callbackUrl: "/"
         });
 
@@ -48,7 +48,6 @@ export default function SignIn() {
             })
         }
 
-        console.log(response)
 
         if (response?.ok) {
             router.push('/')
