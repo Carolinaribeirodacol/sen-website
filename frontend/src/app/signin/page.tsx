@@ -48,13 +48,14 @@ export default function SignIn() {
             })
         }
 
+        console.log(response)
+
         if (response?.ok) {
-            setIsLoading(false)
             router.push('/')
+            setIsLoading(false)
 
             return toast({
-                title: "Sucesso",
-                description: "Seja bem vindo",
+                title: "Seja bem vindo",
                 variant: "default"
             })
 
