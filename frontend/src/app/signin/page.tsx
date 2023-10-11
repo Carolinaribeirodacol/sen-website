@@ -39,26 +39,22 @@ export default function SignIn() {
         });
 
         if (!response?.ok) {
-            setIsLoading(false)
-
-            return toast({
+            toast({
                 title: "Algo deu errado",
                 description: "Email ou senha inválidos",
                 variant: "destructive",
             })
         }
 
-
         if (response?.ok) {
-            router.push('/')
-            setIsLoading(false)
-
-            return toast({
+            toast({
                 title: "Seja bem vindo",
-                variant: "default"
+                variant: "success"
             })
-
+            router.push('/')
         }
+
+        setIsLoading(false)
     }
 
     return (

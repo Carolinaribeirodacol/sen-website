@@ -24,12 +24,11 @@ export default function SignUp() {
     };
 
     const handleSubmit = async (e: any) => {
-        setIsLoading(true);
-        e.preventDefault();
-
-        const { username, name, email, password } = form;
-
         try {
+            setIsLoading(true);
+            e.preventDefault();
+
+            const { username, name, email, password } = form;
             const response = await fetch(getStrapiAPIURL('auth/local/register'), {
                 method: 'POST',
                 headers: {
@@ -44,16 +43,18 @@ export default function SignUp() {
                 }),
             });
 
-            if (!response.ok) {
-                const errorResponse = await response.json();
-                setIsLoading(false);
-
+            if (!response?.ok) {
                 return toast({
-                    title: "Algo deu errado",
-                    description: errorResponse.message || "Erro desconhecido",
+                    title: "Algo deu errado.",
+                    description: "Confira os dados e tente novamente.",
                     variant: "destructive",
-                });
+                })
             } else {
+                toast({
+                    title: "Seja bem vindo",
+                    variant: "success"
+                })
+
                 await signIn("credentials", {
                     email,
                     password,
@@ -64,6 +65,7 @@ export default function SignUp() {
 
             const data = await response.json();
             setIsLoading(false);
+
             return data;
         } catch (error) {
             console.error("Error:", error);

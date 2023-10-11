@@ -6,11 +6,13 @@ import { getStrapiAPIURL } from '@/helpers/api';
 import { Form } from '@/components/Form';
 import { TextField } from '@/components/TextField';
 import InputFile from '@/components/InputFile';
+import { useToast } from '@/components/ui/use-toast';
 
 export default function EditAccount() {
     const { data: session } = useSession()
     const [isLoading, setIsLoading] = React.useState<boolean>(false)
     const [selectedImage, setSelectedImage] = useState<any>(null);
+    const { toast } = useToast()
 
     const [form, setForm] = useState({
         name: '',
@@ -33,6 +35,10 @@ export default function EditAccount() {
     }
 
     const handleSubmit = async (event: any) => {
+        let responseUpload = null;
+        let imageId = null;
+        let responseUploadData = null;
+
         event.preventDefault()
 
         setIsLoading(true)
@@ -42,14 +48,15 @@ export default function EditAccount() {
 
         formData.append('files', selectedImage)
 
-        const responseUpload = await fetch(getStrapiAPIURL('upload'), {
-            method: 'POST',
-            body: formData,
-        });
+        if (selectedImage) {
+            responseUpload = await fetch(getStrapiAPIURL('upload'), {
+                method: 'POST',
+                body: formData,
+            });
 
-        const responseUploadData = await responseUpload.json()
-
-        const imageId = responseUploadData[0].id
+            responseUploadData = await responseUpload?.json()
+            imageId = responseUploadData[0].id
+        }
 
         // @ts-ignore
         const response = await fetch(getStrapiAPIURL(`users/${session?.user?.id}`), {
@@ -67,10 +74,20 @@ export default function EditAccount() {
             }),
         });
 
-        if (!response.ok) {
-            const errorResponse = await response.json();
-            throw new Error(errorResponse.error.message);
+        if (!response?.ok) {
+            return toast({
+                title: "Algo deu errado.",
+                description: "Confira os dados e tente novamente.",
+                variant: "destructive",
+            })
+        } else {
+            toast({
+                title: "Dados atualizados com sucesso",
+                variant: "success"
+            })
         }
+
+
 
         const data = await response.json();
 
