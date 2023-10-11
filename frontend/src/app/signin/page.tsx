@@ -38,7 +38,7 @@ export default function SignIn() {
             callbackUrl: "/"
         });
 
-        if (response?.error) {
+        if (!response?.ok) {
             setIsLoading(false)
 
             return toast({
