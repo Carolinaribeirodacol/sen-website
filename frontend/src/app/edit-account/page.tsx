@@ -106,12 +106,12 @@ export default function EditAccount() {
                     >
                         Editar cadastro
                     </h1>
-                    <Form onSubmit={handleSubmit} action="#">
+                    <Form onSubmit={handleSubmit} action="#" autoComplete="off">
                         <InputFile name="image" onChange={handleFileChange} />
-                        <TextField text="Username" typeInput="text" nameInput="username" onChange={handleChange} placeholder="Maria" />
-                        <TextField text="Nome e sobrenome" typeInput="text" nameInput="name" onChange={handleChange} placeholder="Maria" />
+                        <TextField text="Username" typeInput="text" onChange={handleChange} placeholder="Maria" autoComplete="off" />
+                        <TextField text="Nome e sobrenome" typeInput="text" onChange={handleChange} placeholder="Maria" autoComplete="name" />
                         <TextField text="Email" typeInput="email" nameInput="email" onChange={handleChange} placeholder="name@gmail.com" />
-                        <TextField text="Senha" typeInput="password" nameInput="password" onChange={handleChange} placeholder="••••••••" />
+                        <TextField text="Senha" typeInput="password" nameInput="password" onChange={handleChange} placeholder="••••••••" autoComplete='new-password' />
 
                         <Button disabled={isLoading} type="submit" typeButton="common" textButton="Atualizar" />
                     </Form>

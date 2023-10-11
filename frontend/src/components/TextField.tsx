@@ -1,12 +1,13 @@
 type Props = {
     text: string;
     typeInput: string;
-    nameInput: string;
+    nameInput?: string;
     placeholder?: string;
+    autoComplete?: string;
     onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export const TextField = ({ text, onChange, typeInput, nameInput, placeholder }: Props) => {
+export const TextField = ({ text, onChange, typeInput, nameInput, placeholder, ...props }: Props) => {
     return (
         <div className="">
             <label
@@ -31,6 +32,7 @@ export const TextField = ({ text, onChange, typeInput, nameInput, placeholder }:
                     w-full 
                     p-2.5
                 "
+                {...props}
             />
         </div>
     );
