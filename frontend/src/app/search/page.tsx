@@ -33,46 +33,6 @@ export default function Search() {
         <main className='flex justify-center min-h-screen bg-slate-200 p-10'>
             <div className="container max-w-4xl py-6 lg:py-10 bg-white rounded-md">
                 <div className="flex flex-col items-start gap-4 md:flex-row md:justify-between md:gap-8">
-                    {/* {posts.map((post: any) => {
-                    return (
-                        <div
-                            className="flex flex-col text-gray-800 bg-white/60 shadow-lg hover:opacity-80 w-auto"
-                            key={post.attributes.id}>
-                            <Link href={`posts/${post.id}`}>
-                                <div className="flex flex-grow-0">
-                                    <Image
-                                        alt="post-image"
-                                        image={post.attributes.image}
-                                        className="h-44 w-full object-cover"
-                                    />
-                                </div>
-                                <div className="flex flex-col flex-grow p-6">
-                                    <ul className="text-xs mb-2">
-                                        <li>
-                                            de {post.attributes.author}
-                                        </li>
-                                        <li>
-                                            publicado em: {moment(post.attributes.createdAt).format('DD/MM/YYYY HH:mm')}
-                                        </li>
-                                    </ul>
-                                    <h1
-                                        className="font-bold py-2 text-2xl text-purple-900"
-                                    >
-                                        {post.attributes.title}
-                                    </h1>
-                                    <div className='flex flex-row items-center gap-1'>
-                                        <Markdown
-                                            className="text-sm overflow-hidden w-48"
-                                        >
-                                            {post.attributes.content}
-                                        </Markdown>
-                                        <span>...</span>
-                                    </div>
-                                </div>
-                            </Link>
-                        </div>
-                    )
-                })} */}
                     <div className="grid gap-10 sm:grid-cols-2">
                         {posts.map((post: any, index: number) => (
                             <article

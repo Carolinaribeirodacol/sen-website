@@ -8,8 +8,14 @@ type Props = {
 
 export const Markdown = ({ children, className }: Props) => {
   return (
-    // @ts-ignore
-    <ReactMarkdown rehypePlugins={[rehypeRaw]} className={className}>
+    <ReactMarkdown
+      // @ts-ignore
+      transformimageuri={uri =>
+        uri.startswith("http") ? uri : `${process.env.NEXTAUTH_URL}${uri}`
+      }
+      // @ts-ignore
+      rehypePlugins={[rehypeRaw]}
+      className={className}>
       {children}
     </ReactMarkdown>
   );
