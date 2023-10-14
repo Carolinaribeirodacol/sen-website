@@ -16,7 +16,7 @@ const remotePatterns = process.env.NODE_ENV === 'development'
 const nextConfig = {
     images: {
         domains: ['*'],
-        formats: ['image/avif', 'image/webp', 'image/png', 'image;jpg'],
+        formats: ['image/avif', 'image/webp', 'image/png', 'image/jpg'],
     },
     experimental: {
         appDir: true,
