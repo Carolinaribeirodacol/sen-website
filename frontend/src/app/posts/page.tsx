@@ -1,32 +1,23 @@
-"use client"
+import { Image } from "@/components/Image";
+import { getStrapiAPIURL } from "@/helpers/api";
+import moment from "moment";
+import Link from "next/link";
 
-import moment from 'moment'
-import Link from 'next/link'
-import { useSearchParams } from 'next/navigation'
-import { useEffect, useState } from 'react'
-import { getPostByTag } from '../api/getPostByTag'
-import { Image } from '@/components/Image'
+async function getPostData() {
+    try {
+        const response = await fetch(
+            getStrapiAPIURL('posts?populate=*'),
+            { cache: 'no-store' }
+        );
 
-export default function Search() {
-    const searchParams = useSearchParams()
+        return response.json();
+    } catch (error) {
+        throw new Error('Fail');
+    }
+}
 
-    const query = searchParams?.get('query')
-    const [posts, setPosts] = useState<any>([]);
-
-    useEffect(() => {
-        if (query) {
-            fetchPostsByTag(query);
-        }
-    }, [query]);
-
-    const fetchPostsByTag = async (tag: any) => {
-        try {
-            const posts = await getPostByTag(tag);
-            setPosts(posts.data);
-        } catch (error) {
-            console.error("Error fetching posts:", error);
-        }
-    };
+export default async function Post() {
+    const { data: posts } = await getPostData();
 
     return (
         <main className='flex justify-center min-h-screen bg-slate-200 p-10'>

@@ -1,11 +1,9 @@
 import { Comment } from "@/components/Comment";
-import { Icon } from "@/components/Icon";
 import { Markdown } from "@/components/Markdown";
 import { UserAvatar } from "@/components/UserAvatar";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { getStrapiAPIURL } from "@/helpers/api";
 import { getCurrentUser } from "@/lib/session";
-import { AvatarFallback } from "@radix-ui/react-avatar";
 
 type Props = {
     params: {

@@ -53,8 +53,9 @@ export const Navbar = ({ items }: Props) => {
           </div>
 
           <div className="hidden md:block">
-            <div className="flex flex-row gap-8">
+            <div className="flex flex-row gap-8 items-center content-center">
               <SearchBar />
+              <a href="/posts" className="text-md text-purple-900 hover:border-b-purple-900">Textos</a>
               {session?.user ? (
                 <>
                   <UserAccountNav user={session.user} />
