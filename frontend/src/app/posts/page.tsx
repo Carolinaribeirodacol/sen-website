@@ -30,16 +30,16 @@ export default async function Post() {
                                 className="group relative flex flex-col space-y-2"
                             >
                                 {post.attributes.image && (
-                                    <Image
-                                        image={post.attributes.image}
-                                        alt={post.title}
-                                        width={804}
-                                        height={452}
-                                        className="rounded-md border bg-muted transition-colors"
-                                        priority={index <= 1}
-                                    />
+                                    <div>
+                                        <Image
+                                            image={post.attributes.image}
+                                            alt={post.attributes.title}
+                                            className="rounded-md border bg-muted transition-colors object-cover h-48 w-96"
+                                            priority={index <= 1}
+                                        />
+                                    </div>
                                 )}
-                                <h2 className="text-2xl font-extrabold">{post.title}</h2>
+                                <h2 className="text-purple-900 font-bold text-xl">{post.attributes.title}</h2>
                                 <p className="text-sm text-muted-foreground space-x-2">
                                     <span>{moment(post.attributes.createdAt).format('DD/MM/YYYY HH:mm')}</span>
                                     <span className="text-sm">de {post.attributes.author}</span>
