@@ -6,7 +6,6 @@ import { useState } from 'react'
 
 export default function ForgotPassword() {
     const [email, setEmail] = useState('')
-    const { data: session } = useSession()
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setEmail(event.target.value)
