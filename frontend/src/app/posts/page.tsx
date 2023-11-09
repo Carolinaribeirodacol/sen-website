@@ -29,7 +29,7 @@ export default async function Post() {
                                 key={post.attributes.id}
                                 className="group relative flex flex-col space-y-2"
                             >
-                                {post.attributes.image && (
+                                {post.attributes && post.attributes.image && (
                                     <div>
                                         <Image
                                             image={post.attributes.image}
