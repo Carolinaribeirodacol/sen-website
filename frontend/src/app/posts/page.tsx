@@ -11,7 +11,7 @@ async function getPostData() {
             { cache: 'no-store' }
         );
 
-        return response.json();
+        return await response.json();
     } catch (error) {
         throw new Error('Fail');
     }
