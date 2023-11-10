@@ -1,25 +1,11 @@
 import { Image } from "@/components/Image";
-import { getStrapiAPIURL } from "@/helpers/api";
+import { getPostData } from "@/lib/load-posts";
 import moment from "moment";
+import NextImage from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-
-async function getPostData() {
-    try {
-        const response = await fetch(
-            getStrapiAPIURL('posts?populate=*'),
-            { cache: 'no-store' }
-        );
-
-        return await response.json();
-    } catch (error) {
-        throw new Error('Fail');
-    }
-}
 
 export default async function Post() {
     const { data: posts } = await getPostData();
-    const router = useRouter()
 
     if (!posts) return <h1>Nenhum texto encontrado</h1>
 
@@ -33,15 +19,22 @@ export default async function Post() {
                                 key={post.attributes && post.attributes.id}
                                 className="group relative flex flex-col space-y-2"
                             >
-                                {post.attributes && post.attributes.image && (
-                                    <div>
-                                        <Image
-                                            image={post.attributes.image}
-                                            alt={post.attributes.title}
-                                            className="rounded-md border bg-muted transition-colors object-cover h-48 w-96"
-                                            priority={index <= 1}
-                                        />
-                                    </div>
+                                {post.attributes.image.data ? (
+                                    <Image
+                                        image={post.attributes.image}
+                                        alt={post.attributes.title}
+                                        className="rounded-md border bg-muted transition-colors object-cover h-48 w-96"
+                                        priority={index <= 1}
+                                    />
+                                ) : (
+                                    <NextImage
+                                        src="/assets/sen-logo.png"
+                                        alt={post.attributes.title}
+                                        width={96}
+                                        height={48}
+                                        className="rounded-md border bg-muted transition-colors object-cover h-48 w-96 grayscale"
+                                        priority={index <= 1}
+                                    />
                                 )}
                                 <h2 className="text-purple-900 font-bold text-xl">{post.attributes.title}</h2>
                                 <p className="text-sm text-muted-foreground space-x-2">

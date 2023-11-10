@@ -43,7 +43,7 @@ export const Navbar = ({ items }: Props) => {
             <Link href='/'>
               <Image
                 alt="post-image"
-                image={items.attributes.logo}
+                image={items?.attributes.logo}
                 className="flex-shrink-0 w-14 h-14 mr-4"
               />
             </Link>

@@ -19,6 +19,10 @@ async function getHomeData() {
 export default async function Home() {
   const { data: homePageData } = await getHomeData();
 
+  if (!homePageData) {
+    return <h1>Nenhum dado encontrado</h1>
+  }
+
   return (
     <main className="scroll-smooth">
       <div className="scroll-smooth focus:scroll-auto text-white align-middle items-center content-center py-60 flex flex-col justify-center bg-gradient-to-r from-sky-700 via-rose-900 to-yellow-600 w-full h-1/2">

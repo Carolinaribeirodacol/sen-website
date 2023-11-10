@@ -5,6 +5,7 @@ import { UserAvatar } from "@/components/UserAvatar";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { getStrapiAPIURL } from "@/helpers/api";
 import { getCurrentUser } from "@/lib/session";
+import NextImage from "next/image";
 
 type Props = {
     params: {
@@ -32,11 +33,13 @@ export default async function Page({ params: { slug } }: Props) {
     return (
         <main className="min-h-screen bg-slate-200 p-10">
             <div className="container text-gray-800 bg-white rounded-lg p-10">
-                <Image
-                    image={post.attributes.image}
-                    alt={post.attributes.title}
-                    className="bg-muted transition-colors object-cover object-top h-60 w-full"
-                />
+                {post.attributes.image.data &&
+                    <Image
+                        image={post.attributes.image}
+                        alt={post.attributes.title}
+                        className="bg-muted transition-colors object-cover object-top h-60 w-full"
+                    />
+                }
                 <h1 className="py-6 text-center text-4xl text-purple-900 font-bold">{post.attributes.title}</h1>
                 <article className="prose-xl prose-a:text-red-500">
                     <Markdown className="break-all">{post.attributes.content}</Markdown>
