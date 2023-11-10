@@ -27,7 +27,7 @@ export default async function Post() {
                         <div className="grid gap-10 sm:grid-cols-2">
                             {posts.map((post: any, index: number) => (
                                 <article
-                                    key={post.attributes.id}
+                                    key={post.attributes && post.attributes.id}
                                     className="group relative flex flex-col space-y-2"
                                 >
                                     {post.attributes && post.attributes.image && (
