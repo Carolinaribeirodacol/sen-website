@@ -2,6 +2,7 @@ import { Image } from "@/components/Image";
 import { getStrapiAPIURL } from "@/helpers/api";
 import moment from "moment";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 async function getPostData() {
     try {
@@ -18,8 +19,13 @@ async function getPostData() {
 
 export default async function Post() {
     const { data: posts } = await getPostData();
+    const router = useRouter()
 
     if (!posts) return <h1>Nenhum texto encontrado</h1>
+
+    if (router.isFallback) {
+        return <div>Loading...</div>
+    }
 
     return (
         <main className='flex justify-center min-h-screen bg-slate-200 p-10'>
