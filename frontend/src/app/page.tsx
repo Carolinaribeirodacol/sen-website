@@ -23,7 +23,16 @@ const getRandomPhrase = (phrases: any) => {
 
 export default async function Home() {
   const { data: homePageData } = await getHomeData();
-  let phrase = getRandomPhrase(homePageData.attributes.phrases);
+  let phrase = {
+    id: 1,
+    content: "Frase de teste",
+    author: "Autor teste"
+  }
+
+  if (homePageData.attributes.phrases) {
+    phrase = getRandomPhrase(homePageData.attributes.phrases);
+  }
+
 
   if (!homePageData) {
     return <h1>Nenhum dado encontrado</h1>
