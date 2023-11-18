@@ -17,8 +17,7 @@ async function getHomeData() {
 }
 
 const getRandomPhrase = (phrases: any) => {
-  // @ts-ignore
-  const randomIndex = Math.floor(Math.random() * phrases.length);
+  const randomIndex = Math.floor(Math.random() * phrases?.length);
   return phrases[randomIndex];
 };
 
