@@ -12,9 +12,6 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "phrase": {
-      "type": "text"
-    },
     "content": {
       "type": "richtext"
     },
@@ -31,6 +28,11 @@
     },
     "author": {
       "type": "string"
+    },
+    "phrases": {
+      "type": "component",
+      "repeatable": true,
+      "component": "page.phrase"
     }
   }
 }

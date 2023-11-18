@@ -16,8 +16,14 @@ async function getHomeData() {
   }
 }
 
+const getRandomPhrase = (phrases: any) => {
+  const randomIndex = Math.floor(Math.random() * phrases.length);
+  return phrases[randomIndex];
+};
+
 export default async function Home() {
   const { data: homePageData } = await getHomeData();
+  let phrase = getRandomPhrase(homePageData.attributes.phrases);
 
   if (!homePageData) {
     return <h1>Nenhum dado encontrado</h1>
@@ -29,10 +35,10 @@ export default async function Home() {
         <Image className="flex-shrink-0 w-20 h-20" image={homePageData.attributes.logo} alt={homePageData.attributes.logo.data.id} />
         <div className="lg:max-w-3xl text-center">
           <h1 className="font-medium text-3xl pt-6 animate-out fade-out-25">
-            {homePageData.attributes.phrase}
+            {phrase.content}
           </h1>
           <span className="text-xl">
-            {homePageData.attributes.author}
+            {phrase.author}
           </span>
         </div>
       </div>

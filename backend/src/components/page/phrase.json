@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_page_phrases",
+  "info": {
+    "displayName": "Phrase",
+    "icon": "file"
+  },
+  "options": {},
+  "attributes": {
+    "content": {
+      "type": "text"
+    },
+    "author": {
+      "type": "string"
+    }
+  }
+}
