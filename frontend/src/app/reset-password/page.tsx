@@ -11,12 +11,12 @@ export default function ResetPassword() {
     const [isLoading, setIsLoading] = React.useState<boolean>(false)
     const searchParams = useSearchParams()
 
-    const code = searchParams?.get('code')
+    const urlCode = searchParams?.get('code')
 
     const [form, setForm] = useState({
         password: '',
         passwordConfirmation: '',
-        code: code
+        code: urlCode
     });
 
     const handleChange = (e: any) => {
@@ -25,8 +25,6 @@ export default function ResetPassword() {
             [e.target.name]: e.target.value
         });
     };
-
-    console.log(code)
 
     const handleSubmit = async (event: any) => {
         
