@@ -62,7 +62,7 @@ export default function ResetPassword() {
                 variant: "success"
             })
 
-            router.push('/')
+            router.push('/signin')
         }
 
         const data = await response.json();
