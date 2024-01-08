@@ -14,6 +14,7 @@ export default function SignUp() {
 
     const [form, setForm] = useState({
         name: '',
+        username: '',
         email: '',
         password: ''
     });
@@ -27,7 +28,7 @@ export default function SignUp() {
             setIsLoading(true);
             e.preventDefault();
 
-            const { name, email, password } = form;
+            const { name, username, email, password } = form;
             const response = await fetch(getStrapiAPIURL('auth/local/register'), {
                 method: 'POST',
                 headers: {
@@ -36,6 +37,7 @@ export default function SignUp() {
                 },
                 body: JSON.stringify({
                     name,
+                    username,
                     email,
                     password
                 }),
@@ -81,6 +83,7 @@ export default function SignUp() {
                     Cadastro
                 </h1>
                 <Form onSubmit={handleSubmit} action="#">
+                    <TextField text="Username" typeInput="text" nameInput="username" onChange={handleChange} placeholder="Maria" />
                     <TextField text="Nome e sobrenome" typeInput="text" nameInput="name" onChange={handleChange} placeholder="Maria" />
                     <TextField text="Email" typeInput="email" nameInput="email" onChange={handleChange} placeholder="name@gmail.com" />
                     <TextField text="Senha" typeInput="password" nameInput="password" onChange={handleChange} placeholder="••••••••" />
