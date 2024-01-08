@@ -85,8 +85,6 @@ export default function EditAccount() {
             })
         }
 
-
-
         const data = await response.json();
 
         setIsLoading(false)

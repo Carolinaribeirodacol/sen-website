@@ -83,7 +83,7 @@ export default function SignIn() {
                                 </div>
                             </div> */}
                         <a
-                            href="/reset-password"
+                            href="/forgot-password"
                             className="text-sm font-medium text-primary-600 hover:underline text-blue-400"
                         >
                             Esqueceu a senha?

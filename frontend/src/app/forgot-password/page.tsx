@@ -1,38 +1,54 @@
 "use client"
 import { Button } from '@/components/Button';
+import { toast } from '@/components/ui/use-toast';
 import { getStrapiAPIURL } from '@/helpers/api';
-import { useSession } from 'next-auth/react';
-import { useState } from 'react'
+import React, { useState } from 'react'
 
 export default function ForgotPassword() {
     const [email, setEmail] = useState('')
+    const [isLoading, setIsLoading] = React.useState<boolean>(false)
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setEmail(event.target.value)
     };
 
     const handleSubmit = async (event: any) => {
-        try {
-            event.preventDefault()
+        
+        event.preventDefault()
+        setIsLoading(true)
 
-            const response = await fetch(
-                getStrapiAPIURL('auth/forgot-password'),
-                {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        email,
-                    }),
-                },
-            );
+        // @ts-ignore
+        const response = await fetch(getStrapiAPIURL('auth/forgot-password'), {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email
+            }),
+        });
 
-            console.log(response, email)
-        } catch (error) {
-            console.log(error);
-            throw new Error('Fail');
+        if (!response?.ok) {
+            return toast({
+                title: "Algo deu errado.",
+                description: "Confira os dados e tente novamente.",
+                variant: "destructive",
+            })
+        } else {
+            toast({
+                title: "Email enviado",
+                variant: "success"
+            })
         }
+
+        console.log(response)
+
+        const data = await response.json();
+
+        setIsLoading(false)
+
+        return data;
     }
 
     return (
@@ -60,7 +76,7 @@ export default function ForgotPassword() {
                             />
                         </div>
 
-                        <Button type="submit" typeButton="common" textButton="Enviar" />
+                        <Button disabled={isLoading} type="submit" typeButton="common" textButton="Enviar" />
                     </form>
                 </div>
             </div>
