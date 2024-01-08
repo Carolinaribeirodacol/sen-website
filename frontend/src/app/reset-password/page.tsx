@@ -5,12 +5,13 @@ import { Form } from "@/components/Form";
 import { TextField } from "@/components/TextField";
 import { toast } from "@/components/ui/use-toast";
 import { getStrapiAPIURL } from "@/helpers/api";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import React, { useState } from "react";
 
 export default function ResetPassword() {
     const [isLoading, setIsLoading] = React.useState<boolean>(false)
     const searchParams = useSearchParams()
+    const router = useRouter();
 
     const urlCode = searchParams?.get('code')
 
@@ -60,6 +61,8 @@ export default function ResetPassword() {
                 title: "Senha alterada com sucesso",
                 variant: "success"
             })
+
+            router.push('/')
         }
 
         const data = await response.json();

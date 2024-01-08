@@ -51,6 +51,7 @@ export default function SignIn() {
                 title: "Seja bem vindo",
                 variant: "success"
             })
+            
             router.push('/')
         }
 
