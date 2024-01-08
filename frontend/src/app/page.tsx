@@ -43,7 +43,7 @@ export default async function Home() {
       <div className="scroll-smooth focus:scroll-auto text-white align-middle items-center content-center py-60 flex flex-col justify-center bg-gradient-to-r from-sky-700 via-rose-900 to-yellow-600 w-full h-1/2">
         <Image className="flex-shrink-0 w-20 h-20" image={homePageData.attributes.logo} alt={homePageData.attributes.logo.data.id} />
         <div className="lg:max-w-3xl text-center">
-          <h1 className="font-medium text-3xl pt-6 animate-out fade-out-25">
+          <h1 className="font-medium text-2xl pt-6 animate-out fade-out-25">
             {phrase.content}
           </h1>
           <span className="text-xl">
