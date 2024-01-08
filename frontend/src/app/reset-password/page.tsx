@@ -4,6 +4,7 @@ import { Button } from "@/components/Button";
 import { Form } from "@/components/Form";
 import { TextField } from "@/components/TextField";
 import { toast } from "@/components/ui/use-toast";
+import { getStrapiAPIURL } from "@/helpers/api";
 import { useSearchParams } from "next/navigation";
 import React, { useState } from "react";
 
