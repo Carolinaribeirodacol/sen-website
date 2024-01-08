@@ -12,7 +12,6 @@ export const Navigation = () => {
         <li><Link href="/">Home</Link></li>
         {session?.user ? (
           <>
-            {/* <li>{user.username}</li> */}
             <li>{session.user.name}</li>
             {/* <li><img src={session.user.picture} width="48" height="48" alt="" /></li> */}
             <li><button onClick={() => signOut()}>Logout</button></li>

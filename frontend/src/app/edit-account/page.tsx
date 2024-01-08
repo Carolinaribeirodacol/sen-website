@@ -15,9 +15,8 @@ export default function EditAccount() {
     const { toast } = useToast()
 
     const [form, setForm] = useState({
-        name: '',
-        username: '',
-        email: '',
+        name: session?.user?.name || '',
+        email: session?.user?.email || '',
         password: '',
         image: ''
     });
@@ -44,7 +43,7 @@ export default function EditAccount() {
         setIsLoading(true)
 
         const formData = new FormData();
-        const { name, username, email, password } = form;
+        const { name, email, password } = form;
 
         formData.append('files', selectedImage)
 
@@ -67,7 +66,6 @@ export default function EditAccount() {
             },
             body: JSON.stringify({
                 name,
-                username,
                 email,
                 password,
                 image: imageId
@@ -108,9 +106,8 @@ export default function EditAccount() {
                     </h1>
                     <Form onSubmit={handleSubmit} action="#" autoComplete="off">
                         <InputFile name="image" onChange={handleFileChange} />
-                        <TextField text="Username" typeInput="text" onChange={handleChange} placeholder="Maria" autoComplete="off" />
-                        <TextField text="Nome e sobrenome" typeInput="text" onChange={handleChange} placeholder="Maria" autoComplete="name" />
-                        <TextField text="Email" typeInput="email" nameInput="email" onChange={handleChange} placeholder="name@gmail.com" />
+                        <TextField text="Nome e sobrenome" nameInput="name" value={form.name} typeInput="text" onChange={handleChange} placeholder="Maria" autoComplete="name" />
+                        <TextField text="Email" typeInput="email" nameInput="email" value={form.email} onChange={handleChange} placeholder="name@gmail.com" />
                         <TextField text="Senha" typeInput="password" nameInput="password" onChange={handleChange} placeholder="••••••••" autoComplete='new-password' />
 
                         <Button disabled={isLoading} type="submit" typeButton="common" textButton="Atualizar" />

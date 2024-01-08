@@ -13,7 +13,6 @@ export default function SignUp() {
     const { toast } = useToast()
 
     const [form, setForm] = useState({
-        username: '',
         name: '',
         email: '',
         password: ''
@@ -28,7 +27,7 @@ export default function SignUp() {
             setIsLoading(true);
             e.preventDefault();
 
-            const { username, name, email, password } = form;
+            const { name, email, password } = form;
             const response = await fetch(getStrapiAPIURL('auth/local/register'), {
                 method: 'POST',
                 headers: {
@@ -36,7 +35,6 @@ export default function SignUp() {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    username,
                     name,
                     email,
                     password
@@ -83,7 +81,6 @@ export default function SignUp() {
                     Cadastro
                 </h1>
                 <Form onSubmit={handleSubmit} action="#">
-                    <TextField text="Username" typeInput="text" nameInput="username" onChange={handleChange} placeholder="Maria" />
                     <TextField text="Nome e sobrenome" typeInput="text" nameInput="name" onChange={handleChange} placeholder="Maria" />
                     <TextField text="Email" typeInput="email" nameInput="email" onChange={handleChange} placeholder="name@gmail.com" />
                     <TextField text="Senha" typeInput="password" nameInput="password" onChange={handleChange} placeholder="••••••••" />
