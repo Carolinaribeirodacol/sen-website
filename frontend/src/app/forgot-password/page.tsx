@@ -42,8 +42,6 @@ export default function ForgotPassword() {
             })
         }
 
-        console.log(response)
-
         const data = await response.json();
 
         setIsLoading(false)
