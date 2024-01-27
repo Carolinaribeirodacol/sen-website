@@ -16,12 +16,12 @@ export const Comment = ({ postId }: any) => {
         comment: ''
     });
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>): void => {
         setForm({
             ...form,
             [event.target.name]: event.target.value
-        })
-    };
+        });
+    };    
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         try {
@@ -57,7 +57,13 @@ export const Comment = ({ postId }: any) => {
 
     return (
         <Form onSubmit={handleSubmit}>
-            <TextArea text="Comentários" nameInput="comment" onChange={handleChange} placeholder="Seu comentário aqui..." />
+            <TextArea
+                text="Comentários"
+                nameInput="comment"
+                onChange={handleChange}
+                placeholder="Seu comentário aqui..."
+                value={form.comment}
+            />
             <Button textButton="Comentar" typeButton="submit" />
         </Form>
     )
