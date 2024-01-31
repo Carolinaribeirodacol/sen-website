@@ -48,6 +48,9 @@ export const MobileNavbar = () => {
                             Entrar
                         </Link>
                     )}
+                    <Link href="/posts" className="hover:bg-gray-100 rounded-sm p-2">
+                        Textos
+                    </Link>
                     <SearchBar />
                 </nav>
             </div>

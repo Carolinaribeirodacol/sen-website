@@ -52,7 +52,6 @@ export default async function Post() {
                             </article>
                         ))}
                     </div>
-
                 </div>
             </div>
         </main>
