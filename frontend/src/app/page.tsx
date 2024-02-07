@@ -42,8 +42,8 @@ export default async function Home() {
   return (
     <main className="scroll-smooth">
       <div className="scroll-smooth focus:scroll-auto text-white align-middle items-center content-center py-60 flex flex-col justify-center bg-gradient-to-r from-sky-700 via-rose-900 to-yellow-600 w-full h-1/2">
-        <RevealAnimation>
         <Image className="flex-shrink-0 w-20 h-20" image={homePageData.attributes.logo} alt={homePageData.attributes.logo.data.id} />
+        <RevealAnimation>
         <div className="lg:max-w-3xl text-center">
             <h1 className="font-medium text-2xl pt-6 animate-out fade-out-25">
               {phrase.content}
