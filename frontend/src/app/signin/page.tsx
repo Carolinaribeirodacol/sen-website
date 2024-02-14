@@ -19,7 +19,6 @@ export default function SignIn() {
     });
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(form)
         setForm({
             ...form,
             [event.target.name]: event.target.value
@@ -27,35 +26,41 @@ export default function SignIn() {
     };
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault()
+        try {
+            setIsLoading(true)
 
-        setIsLoading(true)
+            event.preventDefault()
 
-        const response = await signIn("credentials", {
-            email: form.email,
-            password: form.password,
-            redirect: false,
-            callbackUrl: "/"
-        });
+            const response = await signIn("credentials", {
+                email: form.email,
+                password: form.password,
+                redirect: false,
+                callbackUrl: "/"
+            });
 
-        if (!response?.ok) {
+            if (response?.error) {
+                return toast({
+                    title: "Algo deu errado",
+                    description: "Email ou senha inválidos",
+                    variant: "destructive",
+                })
+            }
+
+            toast({
+                title: "Seja bem vindo",
+                variant: "success"
+            })
+
+            router.push('/')
+        } catch {
             toast({
                 title: "Algo deu errado",
                 description: "Email ou senha inválidos",
                 variant: "destructive",
             })
+        } finally {
+            setIsLoading(false)
         }
-
-        if (response?.ok) {
-            toast({
-                title: "Seja bem vindo",
-                variant: "success"
-            })
-            
-            router.push('/')
-        }
-
-        setIsLoading(false)
     }
 
     return (
