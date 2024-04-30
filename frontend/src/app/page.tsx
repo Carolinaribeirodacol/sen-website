@@ -45,17 +45,17 @@ export default async function Home() {
         <Image className="flex-shrink-0 w-20 h-20" image={homePageData.attributes.logo} alt={homePageData.attributes.logo.data.id} />
         <RevealAnimation>
         <div className="lg:max-w-3xl text-center">
-            <h1 className="font-medium text-2xl pt-6 animate-out fade-out-25">
+            <h1 className="md:text-sm font-medium text-2xl pt-6 animate-out fade-out-25">
               {phrase.content}
             </h1>
-            <span className="text-xl">
+            <span className="md:text-sm text-xl">
               {phrase.author}
             </span>
         </div>
         </RevealAnimation>
       </div>
 
-      <p className="text-lg mx-40 py-20">
+      <p className="md:text-sm text-lg mx-4 lg:mx-40 py-20">
         <RevealAnimation>
           {homePageData.attributes.content}
         </RevealAnimation>
