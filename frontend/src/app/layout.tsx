@@ -6,6 +6,7 @@ import { Navbar } from '@/components/Navbar'
 import { getStrapiAPIURL } from '@/helpers/api'
 import { Navigation } from '@/components/Navigation'
 import { Toaster } from '@/components/ui/toaster'
+import { Footer } from '@/components/Footer'
 
 // const inter = Inter({ subsets: ['latin'] })
 const poppins = Poppins({
@@ -48,6 +49,7 @@ export default async function RootLayout({
           <Navbar items={navbar} />
           {children}
           <Toaster />
+          <Footer />
         </NextAuthProvider>
       </body>
     </html>
