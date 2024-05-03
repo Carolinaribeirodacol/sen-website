@@ -30,9 +30,8 @@ export const Footer = () => {
 
         const { email } = form;
 
-        // @ts-ignore
-        // const response = await fetch(getStrapiAPIURL('strapi-newsletter/newsletter/subscribe'), {
-        const response = await fetch('https://api.convertkit.com/v3/tags/4977434/subscribe', {
+       // @ts-ignore
+       const response = await fetch('https://api.convertkit.com/v3/forms/6517940/subscribe', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -67,20 +66,30 @@ export const Footer = () => {
 
 
     return (
-        <footer className="bg-white rounded-lg shadow m-4 dark:bg-gray-800">
-            <Form onSubmit={handleSubmit} action="#" autoComplete="off">
-                <div className="flex flex-col gap-6 lg:flex-row lg:justify-between">
-                    <div className="flex items-center gap-6 p-4">
-                        <h3 className="text-purple-900 text-md font-bold">Seja avisado quando houver novos textos ou novidades gratuitamente!</h3>
-                    </div>
-                    
-                    <div className="w-full p-4">
-                        <TextField text="Email" typeInput="email" nameInput="email" value={form.email} onChange={handleChange} placeholder="name@gmail.com" />
-                    </div>
-
-                    <Button disabled={isLoading} type="submit" typeButton="common" textButton="Enviar" />
+        <footer className="bg-white rounded-lg shadow m-4 dark:bg-gray-800 p-4">
+            <form className="flex flex-row flex-wrap align-center justify-around items-center gap-4" onSubmit={handleSubmit} action="#" autoComplete="off">
+                <h3 className="text-purple-900 text-sm font-bold flex-none">Seja avisado quando houver novos textos ou novidades gratuitamente!</h3>
+                
+                <div className="flex-grow">
+                    <TextField
+                        text=""
+                        typeInput="email"
+                        nameInput="email"
+                        value={form.email}
+                        onChange={handleChange}
+                        placeholder="Digite seu email"
+                    />
                 </div>
-            </Form>
+
+                <div className="flex-none">
+                    <Button
+                        disabled={isLoading}
+                        type="submit"
+                        typeButton="common"
+                        textButton="Enviar"
+                    />
+                </div>
+            </form>
         </footer>
     );
 }
