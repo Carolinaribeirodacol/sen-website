@@ -1,4 +1,5 @@
 "use client"
+import './style.css';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -17,7 +18,7 @@ export default function SimpleSlider({ children, className }: any) {
     autoplaySpeed: 14000,
     cssEase: "linear",
     adaptiveHeight: true,
-    arrows: false
+    arrows: true
   };
 
   return (

@@ -44,8 +44,8 @@ export default async function Home() {
 
   return (
     <main className="scroll-smooth bg-gray-50">
-      <div className="w-full m-auto">
-        <SimpleSlider className="text-white bg-gradient-to-r from-sky-700 via-rose-900 to-yellow-600 rounded-bl-3xl rounded-br-3xl">
+      <div className="w-3/4 mx-auto">
+        <SimpleSlider className="text-white bg-gradient-to-r from-sky-700 via-rose-900 to-yellow-600 rounded-bl-3xl rounded-br-3xl px-10">
           {phrases.map((phrase: any) => (
             <div key={phrase.id}>
               <div className="flex flex-col p-10 items-center">
