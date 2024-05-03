@@ -1,10 +1,10 @@
 "use client"
-import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 export default function SimpleSlider({ children, className }: any) {
+
   const settings = {
     className,
     fade: true,
@@ -22,7 +22,9 @@ export default function SimpleSlider({ children, className }: any) {
 
   return (
     <div className="slider-container">
-      <Slider {...settings}>
+      <Slider
+        {...settings}
+      >
         {children}
       </Slider>
     </div>
