@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_page_carousels",
+  "info": {
+    "displayName": "Carousel",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "phrases": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::phrase.phrase"
+    }
+  }
+}

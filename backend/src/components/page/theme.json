@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_page_themes",
+  "info": {
+    "displayName": "Theme",
+    "icon": "dashboard",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "phrases": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::phrase.phrase"
+    },
+    "title": {
+      "type": "text",
+      "unique": true
+    }
+  }
+}

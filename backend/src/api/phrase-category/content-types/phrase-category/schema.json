@@ -1,0 +1,29 @@
+{
+  "kind": "collectionType",
+  "collectionName": "phrase_categories",
+  "info": {
+    "singularName": "phrase-category",
+    "pluralName": "phrase-categories",
+    "displayName": "Phrase Category",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "order": {
+      "type": "biginteger",
+      "default": "0"
+    },
+    "phrases": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::phrase.phrase",
+      "mappedBy": "phrase_category"
+    }
+  }
+}

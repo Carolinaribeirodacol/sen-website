@@ -66,9 +66,15 @@ export const Footer = () => {
 
 
     return (
-        <footer className="bg-white rounded-lg shadow m-4 dark:bg-gray-800 p-4">
-            <form className="flex flex-row flex-wrap align-center justify-around items-center gap-4" onSubmit={handleSubmit} action="#" autoComplete="off">
-                <h3 className="text-purple-900 text-sm font-bold flex-none">Seja avisado quando houver novos textos ou novidades gratuitamente!</h3>
+        <footer className="bg-white rounded-lg shadow dark:bg-gray-800 p-4">
+            <form className="flex flex-row flex-wrap align-center justify-around items-center gap-4" 
+                onSubmit={handleSubmit} 
+                action="#" 
+                autoComplete="off"
+            >
+                <h3 className="text-purple-900 text-sm font-bold flex-none">
+                    Seja avisado quando houver novos textos ou novidades gratuitamente!
+                </h3>
                 
                 <div className="flex-grow">
                     <TextField

@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "phrases",
+  "info": {
+    "singularName": "phrase",
+    "pluralName": "phrases",
+    "displayName": "Phrase",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "content": {
+      "type": "text"
+    },
+    "link": {
+      "type": "text"
+    },
+    "phrase_category": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::phrase-category.phrase-category",
+      "inversedBy": "phrases"
+    },
+    "author": {
+      "type": "string"
+    }
+  }
+}

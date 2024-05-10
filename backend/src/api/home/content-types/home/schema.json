@@ -25,14 +25,6 @@
         "videos",
         "audios"
       ]
-    },
-    "author": {
-      "type": "string"
-    },
-    "phrases": {
-      "type": "component",
-      "repeatable": true,
-      "component": "page.phrase"
     }
   }
 }
